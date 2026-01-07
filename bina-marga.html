@@ -199,23 +199,41 @@
 
     <script>
         // --- DATASET MERGED ---
-        // Combination of original 2026 data + New 2027-2030 Data
         const rawData = [
-            // 2026 Data (Original)
+            // 2026 Data (UPDATED COMPLETE LIST)
             { action: "Pembangunan Ruas Jalan Bajayau Tengah – Buas – Buas (Sawaja) Kec. Daha Barat (Lanjutan)", year: 2026, budget: 6005040000, type: "jalan" },
             { action: "Rehabilitasi Ruas Jalan Sungai Raya Selatan – Malutu – Goa Berangin Kec. Sungai Raya (Lanjutan)", year: 2026, budget: 4709948000, type: "jalan" },
             { action: "Rehabilitasi Ruas Jalan Bakarung – Tabihi – Karang Jawa Kec. Padang Batung (Lanjutan)", year: 2026, budget: 4700030000, type: "jalan" },
             { action: "Rehabilitasi Jl. Pangeran Antasari – SP. Loklua Kec. Kandangan", year: 2026, budget: 3269018000, type: "jalan" },
             { action: "Rehabilitasi Ruas Jalan Menuju Stadion 2 Desember Kec. Kandangan", year: 2026, budget: 3460703000, type: "jalan" },
             { action: "Rehabilitasi Ruas Jalan Angkinang Selatan – Tawia – Wawaran Kec. Angkinang", year: 2026, budget: 3416395000, type: "jalan" },
-            { action: "Taniran Selatan Kubah – Buntut Taniran (Update)", year: 2026, budget: 18000000000, type: "jalan" }, // Updated value from new data
+            { action: "Pengamanan Badan Jalan Ruas Taniran Selatan Kubah – Buntut/Wawaran Kec. Angkinang (Lanjutan)", year: 2026, budget: 861524200, type: "jalan" },
             { action: "Rekonstruksi Ruas Jalan Samuda – Bajayau Kec. Daha Barat (DBH Sawit Tahap 4)", year: 2026, budget: 1883534000, type: "jalan" },
             { action: "Peningkatan Struktur Ruas Jalan Simpang Malutu – Pahampangan Kec. Padang Batung", year: 2026, budget: 3015840000, type: "jalan" },
-            { action: "Rekonstruksi Ruas Jalan Bamban Tengah – Loknyiur – Bamban (Tibung) – Martajiwa", year: 2026, budget: 2998919000, type: "jalan" },
-            { action: "Rekonstruksi Ruas Jalan Bayanan – Habirau (Jl. Inpres) dan Jl. Gerilya", year: 2026, budget: 2769426000, type: "jalan" },
+            { action: "Rekonstruksi Ruas Jalan Bamban Tengah – Loknyiur – Bamban (Tibung) – Martajiwa Kec. Angkinang", year: 2026, budget: 2998919000, type: "jalan" },
+            { action: "Rekonstruksi Ruas Jalan Bayanan – Habirau (Jl. Inpres) dan Jl. Gerilya Kec. Daha Selatan", year: 2026, budget: 2769426000, type: "jalan" },
+            { action: "Rekonstruksi Ruas Jalan Loksado – Loklahung Kec. Loksado", year: 2026, budget: 1496923000, type: "jalan" },
+            { action: "Rekonstruksi Ruas Jalan Ds. Sungai Raya Utara Kec. Sungai Raya", year: 2026, budget: 796000000, type: "jalan" },
+            { action: "Rekonstruksi Ruas Jalan Tambangan – Baruh Jaya dan Ruas Jl. Sungai Bagandi Kec. Daha Selatan", year: 2026, budget: 4190204550, type: "jalan" },
+            { action: "Pembangunan Ruas Jalan Loksado – Pantai Dusin Kec. Loksado", year: 2026, budget: 1676500000, type: "jalan" },
+            { action: "Pelebaran Ruas Jalan Simpang Hamalau – Teluk Pinang Kec. Sungai Raya", year: 2026, budget: 161100000, type: "jalan" },
+            { action: "Pelebaran Ruas Jalan Taminung Kec. Sungai Raya (Lanjutan)", year: 2026, budget: 161100000, type: "jalan" },
+            { action: "Pelebaran Ruas Jalan Telaga Langsat – Pakuan Timur Kec. Telaga Langsat", year: 2026, budget: 161100000, type: "jalan" },
+            { action: "Pelebaran Ruas Jalan Halayung – Hantarukung Kec. Simpur", year: 2026, budget: 161100000, type: "jalan" },
+            { action: "Peningkatan Struktur Ruas Jalan Sakincung – Ds. Hakurung Dalam Kec. Daha Utara", year: 2026, budget: 191798000, type: "jalan" },
+            { action: "Pelebaran Ruas Jalan Ambarai – Madang Kec. Padang Batung", year: 2026, budget: 161049600, type: "jalan" },
+            { action: "Pelebaran Ruas Jalan Tanjungan – Sp. 10 Batang Kulur – Sungai Kali Kec. Sungai Raya", year: 2026, budget: 161100000, type: "jalan" },
+            { action: "Pelebaran Ruas Jalan Taal Jarau – Simpang Baru/Tampang Kec. Sungai Raya", year: 2026, budget: 161100000, type: "jalan" },
+            { action: "Pelebaran Ruas Jalan Sungai Raya Selatan – Sarang Halang Kec. Sungai Raya", year: 2026, budget: 161100000, type: "jalan" },
+            { action: "Pelebaran Ruas Jalan Tajun – SP.3 Muara Paring Agung Kec. Sungai Raya", year: 2026, budget: 186137800, type: "jalan" },
+            { action: "Pembangunan Ruas Jalan Balimau – Murung Dalam – Muning Dalam Kec. Kalumpang (Karya Bakti)", year: 2026, budget: 8006368000, type: "jalan" },
+            { action: "Peningkatan Struktur Ruas Jalan Malilingin – Lokbahan – Paniungan Kec. Padang Batung (Karya Bakti)", year: 2026, budget: 1997520000, type: "jalan" },
+            { action: "Peningkatan Struktur Ruas Jalan Asam Duhat – Ds. Pantai Ulin Kec. Simpur (TMMD)", year: 2026, budget: 1244760000, type: "jalan" },
             { action: "Pembangunan Jembatan Bubuih Kec. Loksado", year: 2026, budget: 5905775650, type: "jembatan" },
             { action: "Penggantian Jembatan Ruas Jalan Batu Laki – Muara Pipi’i Kec. Padang Batung", year: 2026, budget: 2622532850, type: "jembatan" },
             { action: "Penggantian Jembatan Ruas Jalan Ds. Siang Gantung Kec. Daha Barat", year: 2026, budget: 1999097900, type: "jembatan" },
+            { action: "Penggantian Jembatan Sei Binglu Ds. Balimau Kec. Kalumpang", year: 2026, budget: 1693505000, type: "jembatan" },
+            { action: "Penggantian Jembatan Ruas Jalan Mawangi – Bukuanin – Telaga Langsat Kec. Telaga Langsat", year: 2026, budget: 1497834100, type: "jembatan" },
             
             // 2027 Data (New)
             { action: "Lanjutan Perkerasan Balimau – Murung Dalam – Muning Dalam", year: 2027, budget: 12000000000, type: "jalan" },
@@ -231,10 +249,10 @@
             { action: "Ruas Jalan Ulin – Tanggul (Balai Mas)", year: 2027, budget: 4065489000, type: "jalan" },
             { action: "Ruas Jalan Halaban", year: 2027, budget: 3342132000, type: "jalan" },
             { action: "Anjiran Rantauan – Taniran Tengah", year: 2027, budget: 2698885000, type: "jalan" },
-            { action: "Loksado – Haratai", year: 2027, budget: 15000000000, type: "jalan" },
+            { action: "Loksado – Haratai", year: 2027, budget: 32300000000, type: "jalan" },
             { action: "Batang Kulur Kanan – Batang Kulur Kiri", year: 2027, budget: 2237991300, type: "jalan" },
             { action: "H. Izim – Pantai Ulin", year: 2027, budget: 1201030200, type: "jalan" },
-            { action: "Loklahung – Kamawakan", year: 2027, budget: 10000000000, type: "jalan" },
+            { action: "Loklahung – Kamawakan", year: 2027, budget: 20000000000, type: "jalan" },
             { action: "Malilingin – Muara Hariang", year: 2027, budget: 3522750000, type: "jalan" },
             { action: "Banua Hanyar – Tanjung Selor", year: 2027, budget: 3001519000, type: "jalan" },
             { action: "Jembatan Pabahanan", year: 2027, budget: 3498761160, type: "jembatan" },
