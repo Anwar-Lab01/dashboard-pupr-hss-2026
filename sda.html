@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Sumber Daya Air (SDA)</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f9ff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        .currency-cell { text-align: right; font-feature-settings: "tnum"; font-variant-numeric: tabular-nums; white-space: nowrap; }
+        
+        /* Custom Scrollbar for Table */
+        .custom-scrollbar::-webkit-scrollbar { height: 8px; width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #93c5fd; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #60a5fa; }
+
+        @media print {
+            @page { size: landscape; margin: 5mm; }
+            body { background-color: white; font-size: 10px; }
+            .no-print { display: none !important; }
+            .card { box-shadow: none !important; border: 1px solid #ddd !important; break-inside: avoid; margin-bottom: 10px; }
+            /* Force background printing */
+            .bg-blue-900, .bg-blue-50, .bg-cyan-600, .bg-sky-100 { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            /* Adjust table for print */
+            table { width: 100%; border-collapse: collapse; }
+            th, td { border: 1px solid #ccc; padding: 2px 4px !important; }
+            /* Hide chart containers to save space if needed, or resize */
+            .chart-container { height: 250px !important; page-break-inside: avoid; }
+            .text-gray-500, .text-gray-600, .text-gray-700 { color: #000 !important; }
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+<nav class="no-print bg-white border-b border-slate-200 shadow-sm sticky top-0 z-[60]">
+    <div class="max-w-[98%] mx-auto px-4">
+        <div class="flex flex-wrap items-center justify-between py-2 gap-4">
+            <a href="index.html" class="flex items-center gap-2 text-slate-800 hover:text-blue-600 font-black text-sm uppercase tracking-tighter">
+                <i class="fa-solid fa-house-chimney"></i> 
+                <span>Dashboard Utama</span>
+            </a>
+
+            <div class="flex flex-wrap gap-2 md:gap-4">
+                <a href="bina-marga.html" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-amber-200 bg-amber-50 text-amber-700 hover:bg-amber-500 hover:text-white">
+                    <i class="fa-solid fa-road mr-1"></i> Bina Marga
+                </a>
+                <a href="cipta-karya.html" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-500 hover:text-white">
+                    <i class="fa-solid fa-city mr-1"></i> Cipta Karya
+                </a>
+                <a href="sda.html" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-cyan-200 bg-cyan-50 text-cyan-700 hover:bg-cyan-500 hover:text-white">
+                    <i class="fa-solid fa-water mr-1"></i> SDA
+                </a>
+                <a href="tata-ruang.html" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-500 hover:text-white">
+                    <i class="fa-solid fa-map mr-1"></i> Tata Ruang
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+    <!-- Navbar -->
+    <nav class="bg-cyan-800 text-white shadow-lg sticky top-0 z-50 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <div class="bg-cyan-600 p-2 rounded-lg">
+                        <i class="fa-solid fa-water text-white"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-bold text-base leading-tight">Bidang Sumber Daya Air</span>
+                        <span class="text-xs text-cyan-200 font-light">Rencana Kerja & Anggaran</span>
+                    </div>
+                </div>
+                <div>
+                    <button onclick="window.print()" class="bg-cyan-600 hover:bg-cyan-500 text-white px-4 py-2 rounded-md text-sm font-medium transition shadow-md flex items-center gap-2">
+                        <i class="fa-solid fa-print"></i> 
+                        <span>Cetak Laporan (PDF)</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-[95%] mx-auto px-2 sm:px-4 lg:px-6 py-8">
+        
+        <!-- Summary Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div class="bg-white rounded-xl shadow-sm p-5 border border-blue-100 card relative overflow-hidden group">
+                <div class="absolute right-0 top-0 h-full w-1 bg-blue-500"></div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Total Pagu Indikatif</p>
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-800 mt-1 tracking-tight" id="totalBudget">Rp 0</h3>
+                    </div>
+                    <div class="p-2 bg-blue-50 rounded-lg text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+                        <i class="fa-solid fa-money-bill-wave"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm p-5 border border-blue-100 card relative overflow-hidden group">
+                <div class="absolute right-0 top-0 h-full w-1 bg-cyan-500"></div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Total Kegiatan</p>
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-800 mt-1" id="totalActivities">0</h3>
+                    </div>
+                    <div class="p-2 bg-cyan-50 rounded-lg text-cyan-600 group-hover:bg-cyan-600 group-hover:text-white transition-colors duration-300">
+                        <i class="fa-solid fa-list-check"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm p-5 border border-blue-100 card relative overflow-hidden group">
+                <div class="absolute right-0 top-0 h-full w-1 bg-sky-500"></div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Fokus Utama</p>
+                        <h3 class="text-lg md:text-xl font-bold text-gray-800 mt-1">Irigasi Pertanian</h3>
+                    </div>
+                    <div class="p-2 bg-sky-50 rounded-lg text-sky-600 group-hover:bg-sky-600 group-hover:text-white transition-colors duration-300">
+                        <i class="fa-solid fa-wheat-awn"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm p-5 border border-blue-100 card relative overflow-hidden group">
+                <div class="absolute right-0 top-0 h-full w-1 bg-indigo-500"></div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Sumber Dana</p>
+                        <h3 class="text-xl md:text-2xl font-bold text-gray-800 mt-1">APBD</h3>
+                    </div>
+                    <div class="p-2 bg-indigo-50 rounded-lg text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300">
+                        <i class="fa-solid fa-building-columns"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            <!-- Budget Allocation Chart -->
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-blue-100 card chart-container">
+                <div class="flex justify-between items-center mb-4 border-b border-blue-100 pb-2">
+                    <h4 class="text-base font-bold text-gray-700">Alokasi Anggaran per Program</h4>
+                    <span class="text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded">Distribusi</span>
+                </div>
+                <div class="relative h-64 w-full">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Items Count Chart -->
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-blue-100 card chart-container">
+                <div class="flex justify-between items-center mb-4 border-b border-blue-100 pb-2">
+                    <h4 class="text-base font-bold text-gray-700">Jumlah Paket Pekerjaan</h4>
+                    <span class="text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded">Volume</span>
+                </div>
+                <div class="relative h-64 w-full">
+                    <canvas id="countChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Table -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden card">
+            
+            <!-- Header & Filter -->
+            <div class="px-6 py-4 border-b border-gray-200 flex flex-col md:flex-row justify-between items-center bg-gray-50 gap-4">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-table text-cyan-600"></i>
+                    <h3 class="text-lg font-bold text-gray-800">Rincian Rencana Aksi</h3>
+                </div>
+                
+                <!-- Category Tabs -->
+                <div class="flex flex-wrap gap-2 p-1 bg-gray-200 rounded-lg no-print">
+                    <button onclick="renderTable('all')" id="btn-all" class="px-3 py-1.5 text-xs font-semibold rounded-md shadow-sm transition-all bg-white text-cyan-700">Semua</button>
+                    <button onclick="renderTable('rusak_air')" id="btn-rusak_air" class="px-3 py-1.5 text-xs font-semibold rounded-md transition-all text-gray-600 hover:bg-white hover:text-cyan-700">Daya Rusak Air</button>
+                    <button onclick="renderTable('irigasi')" id="btn-irigasi" class="px-3 py-1.5 text-xs font-semibold rounded-md transition-all text-gray-600 hover:bg-white hover:text-cyan-700">Irigasi</button>
+                    <button onclick="renderTable('lainnya')" id="btn-lainnya" class="px-3 py-1.5 text-xs font-semibold rounded-md transition-all text-gray-600 hover:bg-white hover:text-cyan-700">P3A & Sistem Info</button>
+                </div>
+            </div>
+            
+            <div class="overflow-x-auto custom-scrollbar max-h-[800px]">
+                <table class="min-w-full divide-y divide-gray-200 text-sm border-collapse">
+                    <thead class="bg-gray-100 sticky top-0 z-10 shadow-sm">
+                        <tr>
+                            <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-1/3 bg-gray-100 border-b-2 border-gray-300">
+                                Rencana Aksi
+                            </th>
+                            <th scope="col" class="px-4 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider bg-gray-100 border-b-2 border-gray-300">
+                                Target Output
+                            </th>
+                            <th scope="col" class="px-3 py-4 text-center text-xs font-bold text-gray-600 uppercase tracking-wider bg-gray-100 border-b-2 border-gray-300">
+                                Sumber Dana
+                            </th>
+                            <th scope="col" class="px-4 py-4 text-right text-xs font-bold text-cyan-700 uppercase tracking-wider bg-cyan-50 border-b-2 border-cyan-200">
+                                Pagu Indikatif
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200" id="tableBody">
+                        <!-- Data will be injected here via JS -->
+                    </tbody>
+                    <tfoot class="bg-slate-50 font-bold text-gray-800 sticky bottom-0 shadow-[0_-2px_4px_rgba(0,0,0,0.1)]">
+                        <tr class="bg-slate-100">
+                            <td colspan="3" class="px-6 py-4 text-gray-900 border-t-2 border-gray-300 text-right">TOTAL KESELURUHAN</td>
+                            <td class="px-4 py-4 text-right currency-cell bg-cyan-50 text-cyan-800 border-t-2 border-cyan-200" id="footerTotal">0</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        
+        <div class="mt-6 text-center text-gray-400 text-xs no-print">
+            <p>Sistem Perencanaan Terpadu &copy; 2025. Bidang Sumber Daya Air.</p>
+        </div>
+
+    </main>
+
+    <script>
+        // --- DATA PREPARATION ---
+        
+        const rawData = [
+            {
+                id: "rusak_air",
+                objective: "PENGENDALIAN DAYA RUSAK AIR: Terlindunginya wilayah dari potensi daya rusak air",
+                items: [
+                    { action: "Pembangunan Tanggul Sungai di Desa Jelatang Majelis Guru Syairaji Kec. Padang Batung (Lanjutan)", output: "35 Meter (4 Tingkat)", source: "APBD", budget: 616135920 },
+                    { action: "Pembangunan Tanggul Sungai di Desa Sungai Kupang Kec. Kandangan", output: "30 Meter (4 Tingkat)", source: "APBD", budget: 569925726 },
+                    { action: "Pembangunan Tanggul Sungai di Desa Ulang Kec. Loksado", output: "12 Meter (3 Tingkat)", source: "APBD", budget: 195741568 },
+                    { action: "Pembangunan Tanggul Sungai di Kelurahan Jambu Hilir RT.07 (Tembok Lama) Kec. Kandangan", output: "18 Meter (4 Tingkat)", source: "APBD", budget: 315343786 },
+                    { action: "Normalisasi Sungai di Desa Bajayau Lama Kec. Daha Barat (Lanjutan)", output: "6000 m", source: "APBD", budget: 756496450 },
+                    { action: "Normalisasi Sungai di Desa Hamayung Kec. Daha Utara", output: "1500 m", source: "APBD", budget: 195730000 },
+                    { action: "Normalisasi Sungai di Desa Sianggantung RT.04 Kec. Daha Barat (Lanjutan)", output: "1500 m", source: "APBD", budget: 195730000 },
+                    { action: "Normalisasi Sungai Gemorong di Desa Amparaya Kec. Simpur", output: "2500 m", source: "APBD", budget: 391460000 },
+                    { action: "Pembersihan Sungai di Kab. Hulu Sungai Selatan", output: "2000 m", source: "APBD", budget: 371258432 },
+                    { action: "Pembersihan Sungai di Sekitar Kec. Kalumpang", output: "2000 m", source: "APBD", budget: 371583610 },
+                    { action: "Pembersihan Sungai di Sekitar Kec. Kandangan", output: "1000 m", source: "APBD", budget: 199938195 },
+                    { action: "Pembersihan Sungai di Sekitar Kec. Simpur", output: "1000 m", source: "APBD", budget: 199938195 }
+                ]
+            },
+            {
+                id: "lainnya",
+                objective: "PEMBERDAYAAN & SISTEM INFORMASI: Keterlibatan masyarakat & Data Digital",
+                items: [
+                    { action: "Pembinaan dan bimbingan teknis P3A", output: "20 orang", source: "APBD", budget: 84065000 },
+                    { action: "Pembuatan Aplikasi berbasis Sistem Informasi Saluran Irigasi", output: "1 Aplikasi", source: "APBD", budget: 15000000 }
+                ]
+            },
+            {
+                id: "irigasi",
+                objective: "IRIGASI: Meningkatnya kinerja dan cakupan pelayanan jaringan irigasi",
+                items: [
+                    { action: "Pembangunan Pintu Air untuk UPTD Balai Benih Ikan Lokal Kandangan di Desa Pahampangan", output: "20 m", source: "APBD", budget: 50000000 },
+                    { action: "Pembangunan Saluran DI. Pulau Besar Kec. Sungai Raya", output: "300 m", source: "APBD", budget: 396606540 },
+                    { action: "Peningkatan Jaringan Irigasi DI. Beton Tebing Tinggi Kec. Simpur", output: "340 m", source: "APBD", budget: 702397920 },
+                    { action: "Peningkatan Jaringan Irigasi DI. Pembahanan Kec. Kalumpang", output: "122 m", source: "APBD", budget: 184379454 },
+                    { action: "Rehabilitasi Jaringan Irigasi DI. Desa Baru Kec. Sungai Raya (Lanjutan)", output: "325 m", source: "APBD", budget: 435611400 },
+                    { action: "Rehabilitasi Jaringan Irigasi DI. Madang III Kec. Padang Batung", output: "140 m", source: "APBD", budget: 196025130 },
+                    { action: "Rehabilitasi Jaringan Irigasi DI. Umihan Kec. Kandangan", output: "130 m", source: "APBD", budget: 181504750 },
+                    { action: "Pembangunan Sumur Bor di Desa Panjampang Bahagia Kec. Simpur", output: "1 unit", source: "APBD", budget: 197600000 },
+                    { action: "Pembangunan Daerah Irigasi Baruh Desa Sungai Kupang Kec. Kandangan", output: "1 unit", source: "APBD", budget: 261029273 },
+                    { action: "Rehabilitasi DI. Madang II Kec. Padang Batung", output: "1 unit", source: "APBD", budget: 121196177 },
+                    { action: "Rehabilitasi DI. Telaga Pacat Kec. Telaga Langsat", output: "1 unit", source: "APBD", budget: 193913823 },
+                    { action: "Pemeliharaan Jaringan Irigasi DI. Gumbil", output: "1400 m", source: "APBD", budget: 193706660 },
+                    { action: "Pemeliharaan Jaringan Irigasi di Kec. Angkinang", output: "2500 m", source: "APBD", budget: 199833650 },
+                    { action: "Pemeliharaan Jaringan Irigasi di Kec. Padang Batung", output: "2500 m", source: "APBD", budget: 199833650 },
+                    { action: "Pemeliharaan Jaringan Irigasi di Kec. Simpur & Kalumpang", output: "2100 m", source: "APBD", budget: 195056750 },
+                    { action: "Pemeliharaan Jaringan Irigasi di Kec. Sungai Raya", output: "2500 m", source: "APBD", budget: 199833650 },
+                    { action: "Pemeliharaan Jaringan Irigasi di Kec. Telaga Langsat", output: "2500 m", source: "APBD", budget: 199833650 },
+                    { action: "Pemeliharaan Jaringan Irigasi DIR. Sianggantung", output: "2000 m", source: "APBD", budget: 199055400 },
+                    { action: "Pemeliharaan Jaringan Irigasi DIR. Sungai Balum", output: "2000 m", source: "APBD", budget: 199055400 },
+                    { action: "Pemeliharaan Jaringan Irigasi DIR. Sungai Taniran", output: "2000 m", source: "APBD", budget: 196169640 },
+                    { action: "Pemeliharaan Jaringan Irigasi DIR. Tirta Bahalayung", output: "2000 m", source: "APBD", budget: 199055400 }
+                ]
+            }
+        ];
+
+        // --- HELPER FUNCTIONS ---
+        const formatIDR = (num) => {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(num).replace("Rp", "");
+        };
+
+        const formatIDRFull = (num) => {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(num);
+        };
+
+        const sumArray = (arr) => arr.reduce((a, b) => a + b, 0);
+
+        // --- GLOBAL STATS CALCULATOR ---
+        let totalBudgetPerObjective = [];
+        let countPerObjective = [];
+        let grandTotal = 0;
+        let activityCount = 0;
+
+        rawData.forEach((group) => {
+            let groupTotal = 0;
+            let groupCount = 0;
+            group.items.forEach(item => {
+                activityCount++;
+                groupCount++;
+                groupTotal += item.budget;
+            });
+            totalBudgetPerObjective.push(groupTotal);
+            countPerObjective.push(groupCount);
+            grandTotal += groupTotal;
+        });
+
+        // --- RENDER FUNCTIONS ---
+
+        function renderTable(filterMode) {
+            // Update active button state
+            document.querySelectorAll('button[id^="btn-"]').forEach(btn => {
+                btn.className = "px-3 py-1.5 text-xs font-semibold rounded-md transition-all text-gray-600 hover:bg-white hover:text-cyan-700";
+            });
+            const activeBtn = document.getElementById(`btn-${filterMode}`);
+            if(activeBtn) {
+                activeBtn.className = "px-3 py-1.5 text-xs font-semibold rounded-md shadow-sm transition-all bg-white text-cyan-700 ring-1 ring-gray-200";
+            }
+
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+
+            rawData.forEach((group, index) => {
+                // Filter Logic
+                if (filterMode !== 'all' && group.id !== filterMode) return;
+
+                // Group Header
+                const headerRow = document.createElement('tr');
+                headerRow.className = "bg-sky-50 break-inside-avoid"; 
+                headerRow.innerHTML = `
+                    <td colspan="4" class="px-6 py-3 text-sm font-bold text-cyan-800 border-t border-b border-cyan-100">
+                        <div class="flex items-center gap-2">
+                            <span class="flex items-center justify-center w-6 h-6 rounded-full bg-cyan-200 text-xs text-cyan-700">${index + 1}</span>
+                            <span>${group.objective}</span>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(headerRow);
+
+                let groupSubTotal = 0;
+
+                // Items
+                group.items.forEach(item => {
+                    groupSubTotal += item.budget;
+                    const row = document.createElement('tr');
+                    row.className = "hover:bg-cyan-50 transition group border-b border-gray-100";
+                    row.innerHTML = `
+                        <td class="px-6 py-3 text-gray-700 text-sm pl-10 border-l-4 border-transparent hover:border-cyan-400 group-hover:text-cyan-900">
+                            ${item.action}
+                        </td>
+                        <td class="px-4 py-3 text-sm text-gray-600">
+                           <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800">
+                            ${item.output}
+                           </span>
+                        </td>
+                         <td class="px-3 py-3 text-center text-sm font-medium text-gray-500">
+                            ${item.source}
+                        </td>
+                        <td class="px-4 py-3 currency-cell font-medium text-cyan-700">${formatIDR(item.budget)}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+
+                // Subtotal Row
+                const subRow = document.createElement('tr');
+                subRow.className = "bg-white font-semibold italic text-gray-500";
+                subRow.innerHTML = `
+                    <td colspan="3" class="px-6 py-2 text-right text-xs">Subtotal ${group.id === 'rusak_air' ? 'Daya Rusak Air' : (group.id === 'irigasi' ? 'Irigasi' : 'Lainnya')}:</td>
+                    <td class="px-4 py-2 text-right text-xs currency-cell">${formatIDR(groupSubTotal)}</td>
+                `;
+                tbody.appendChild(subRow);
+            });
+        }
+
+        // --- UPDATE SUMMARY CARDS ---
+        document.getElementById('totalBudget').innerText = formatIDRFull(grandTotal);
+        document.getElementById('totalActivities').innerText = activityCount;
+
+        // --- INITIAL RENDER ---
+        renderTable('all');
+        document.getElementById('footerTotal').innerText = formatIDRFull(grandTotal).replace("Rp", "");
+
+
+        // --- CHARTS CONFIGURATION ---
+        Chart.defaults.font.family = "'Inter', sans-serif";
+        Chart.defaults.color = '#64748b';
+
+        const chartLabels = ["Daya Rusak Air", "Pemberdayaan & Data", "Irigasi"];
+
+        // 1. Doughnut Chart (Budget Distribution)
+        const ctxCat = document.getElementById('categoryChart').getContext('2d');
+        new Chart(ctxCat, {
+            type: 'doughnut',
+            data: {
+                labels: chartLabels,
+                datasets: [{
+                    data: totalBudgetPerObjective,
+                    backgroundColor: [
+                        '#0ea5e9', // sky-500
+                        '#6366f1', // indigo-500
+                        '#06b6d4', // cyan-500
+                    ],
+                    borderWidth: 0,
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: { boxWidth: 10, usePointStyle: true, pointStyle: 'circle', font: { size: 11 } }
+                    },
+                    tooltip: {
+                        backgroundColor: '#0f172a',
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                let value = context.raw;
+                                let percentage = (value / grandTotal * 100).toFixed(1) + '%';
+                                return ' ' + percentage;
+                            },
+                            afterLabel: function(context) { return ' ' + formatIDRFull(context.raw); }
+                        }
+                    }
+                }
+            }
+        });
+
+        // 2. Bar Chart (Activity Count)
+        const ctxCount = document.getElementById('countChart').getContext('2d');
+        new Chart(ctxCount, {
+            type: 'bar',
+            data: {
+                labels: chartLabels,
+                datasets: [{
+                    label: 'Jumlah Paket',
+                    data: countPerObjective,
+                    backgroundColor: [
+                        'rgba(14, 165, 233, 0.7)',
+                        'rgba(99, 102, 241, 0.7)',
+                        'rgba(6, 182, 212, 0.7)',
+                    ],
+                    borderColor: [
+                        '#0ea5e9',
+                        '#6366f1',
+                        '#06b6d4',
+                    ],
+                    borderWidth: 1,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { backgroundColor: '#0f172a' }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { borderDash: [2, 2], drawBorder: false },
+                        ticks: { stepSize: 5 }
+                    },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>

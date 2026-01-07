@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Bidang Bina Marga - PUPR</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        .currency-cell { text-align: right; font-feature-settings: "tnum"; font-variant-numeric: tabular-nums; white-space: nowrap; }
+        
+        /* Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar { height: 8px; width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        @media print {
+            @page { size: landscape; margin: 8mm; }
+            body { background-color: white; font-size: 10px; }
+            .no-print { display: none !important; }
+            .card { box-shadow: none !important; border: 1px solid #e2e8f0 !important; break-inside: avoid; }
+            .bg-slate-900, .bg-slate-50, .bg-amber-500 { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            table { width: 100%; border-collapse: collapse; }
+            th, td { border: 1px solid #cbd5e1 !important; padding: 4px 6px !important; }
+            .chart-container { height: 280px !important; }
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+<nav class="no-print bg-white border-b border-slate-200 shadow-sm sticky top-0 z-[60]">
+    <div class="max-w-[98%] mx-auto px-4">
+        <div class="flex flex-wrap items-center justify-between py-2 gap-4">
+            <a href="index.html" class="flex items-center gap-2 text-slate-800 hover:text-blue-600 font-black text-sm uppercase tracking-tighter">
+                <i class="fa-solid fa-house-chimney"></i> 
+                <span>Dashboard Utama</span>
+            </a>
+
+            <div class="flex flex-wrap gap-2 md:gap-4">
+                <a href="bina-marga.html" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-amber-200 bg-amber-50 text-amber-700 hover:bg-amber-500 hover:text-white">
+                    <i class="fa-solid fa-road mr-1"></i> Bina Marga
+                </a>
+                <a href="cipta-karya.html" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-500 hover:text-white">
+                    <i class="fa-solid fa-city mr-1"></i> Cipta Karya
+                </a>
+                <a href="sda.html" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-cyan-200 bg-cyan-50 text-cyan-700 hover:bg-cyan-500 hover:text-white">
+                    <i class="fa-solid fa-water mr-1"></i> SDA
+                </a>
+                <a href="tata-ruang.html" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-500 hover:text-white">
+                    <i class="fa-solid fa-map mr-1"></i> Tata Ruang
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+    <!-- Navbar -->
+    <nav class="bg-slate-900 text-white shadow-xl sticky top-0 z-50 no-print">
+        <div class="max-w-[98%] mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-4">
+                    <div class="bg-amber-500 p-2 rounded-lg shadow-inner">
+                        <i class="fa-solid fa-road text-slate-900 text-xl"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-bold text-lg leading-tight uppercase tracking-wide">Bidang Bina Marga</span>
+                        <span class="text-xs text-slate-400 font-medium">Infrastruktur Jalan & Jembatan - Tahun 2026</span>
+                    </div>
+                </div>
+                <div>
+                    <button onclick="window.print()" class="bg-slate-700 hover:bg-slate-600 text-white px-5 py-2 rounded-lg text-sm font-semibold transition-all shadow-lg flex items-center gap-2 border border-slate-600">
+                        <i class="fa-solid fa-file-pdf"></i> 
+                        <span>Ekspor Laporan</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-[98%] mx-auto px-4 py-8">
+        
+        <!-- Summary Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-5 mb-8">
+            <!-- Total Anggaran -->
+            <div class="bg-white rounded-2xl shadow-sm p-6 border border-slate-100 card relative overflow-hidden group">
+                <div class="absolute right-0 top-0 h-full w-1.5 bg-amber-500"></div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Total Pagu Indikatif</p>
+                        <h3 class="text-xl md:text-2xl font-black text-slate-800 mt-2 tracking-tighter" id="totalBudget">Rp 0</h3>
+                    </div>
+                    <div class="p-3 bg-amber-50 rounded-xl text-amber-600 group-hover:bg-amber-500 group-hover:text-white transition-all duration-300">
+                        <i class="fa-solid fa-vault text-xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Jalan -->
+            <div class="bg-white rounded-2xl shadow-sm p-6 border border-slate-100 card relative overflow-hidden group">
+                <div class="absolute right-0 top-0 h-full w-1.5 bg-blue-500"></div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Ruas Jalan</p>
+                        <h3 class="text-xl md:text-2xl font-black text-slate-800 mt-2" id="totalRoads">0</h3>
+                    </div>
+                    <div class="p-3 bg-blue-50 rounded-xl text-blue-600 group-hover:bg-blue-500 group-hover:text-white transition-all duration-300">
+                        <i class="fa-solid fa-map-location-dot text-xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Jembatan -->
+            <div class="bg-white rounded-2xl shadow-sm p-6 border border-slate-100 card relative overflow-hidden group">
+                <div class="absolute right-0 top-0 h-full w-1.5 bg-cyan-500"></div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Unit Jembatan</p>
+                        <h3 class="text-xl md:text-2xl font-black text-slate-800 mt-2" id="totalBridges">0</h3>
+                    </div>
+                    <div class="p-3 bg-cyan-50 rounded-xl text-cyan-600 group-hover:bg-cyan-500 group-hover:text-white transition-all duration-300">
+                        <i class="fa-solid fa-bridge text-xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sumber Dana -->
+            <div class="bg-white rounded-2xl shadow-sm p-6 border border-slate-100 card relative overflow-hidden group">
+                <div class="absolute right-0 top-0 h-full w-1.5 bg-slate-800"></div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Sumber Utama</p>
+                        <h3 class="text-xl md:text-2xl font-black text-slate-800 mt-2">APBD & DBH</h3>
+                    </div>
+                    <div class="p-3 bg-slate-100 rounded-xl text-slate-600 group-hover:bg-slate-800 group-hover:text-white transition-all duration-300">
+                        <i class="fa-solid fa-landmark text-xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 card chart-container">
+                <div class="flex justify-between items-center mb-6">
+                    <h4 class="text-sm font-black text-slate-700 uppercase tracking-wider"><i class="fa-solid fa-chart-pie mr-2 text-amber-500"></i>Alokasi Anggaran Per Bidang</h4>
+                </div>
+                <div class="relative h-64">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 card chart-container">
+                <div class="flex justify-between items-center mb-6">
+                    <h4 class="text-sm font-black text-slate-700 uppercase tracking-wider"><i class="fa-solid fa-coins mr-2 text-amber-500"></i>Proporsi Sumber Pendanaan</h4>
+                </div>
+                <div class="relative h-64">
+                    <canvas id="sourceChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden card">
+            <div class="px-6 py-5 border-b border-slate-100 flex flex-col md:flex-row justify-between items-center bg-slate-50/50 gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-2 h-8 bg-amber-500 rounded-full"></div>
+                    <h3 class="text-lg font-black text-slate-800">MATRIKS RENCANA AKSI BINA MARGA</h3>
+                </div>
+                
+                <!-- Filter Tabs -->
+                <div class="flex bg-slate-200 p-1 rounded-xl no-print">
+                    <button onclick="renderTable('all')" id="btn-all" class="px-5 py-2 text-xs font-bold rounded-lg transition-all bg-white text-slate-900 shadow-sm">SEMUA</button>
+                    <button onclick="renderTable('jalan')" id="btn-jalan" class="px-5 py-2 text-xs font-bold rounded-lg transition-all text-slate-500 hover:text-slate-800">JALAN</button>
+                    <button onclick="renderTable('jembatan')" id="btn-jembatan" class="px-5 py-2 text-xs font-bold rounded-lg transition-all text-slate-500 hover:text-slate-800">JEMBATAN</button>
+                </div>
+            </div>
+            
+            <div class="overflow-x-auto custom-scrollbar max-h-[850px]">
+                <table class="min-w-full divide-y divide-slate-200 text-sm">
+                    <thead class="bg-slate-100 sticky top-0 z-20">
+                        <tr>
+                            <th class="px-6 py-4 text-left text-xs font-black text-slate-500 uppercase tracking-widest border-b-2 border-slate-200">Uraian Pekerjaan / Rencana Aksi</th>
+                            <th class="px-4 py-4 text-center text-xs font-black text-slate-500 uppercase tracking-widest border-b-2 border-slate-200">Sumber Dana</th>
+                            <th class="px-6 py-4 text-right text-xs font-black text-slate-900 uppercase tracking-widest border-b-2 border-amber-500 bg-amber-50/30">Pagu Indikatif (Rp)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-slate-100" id="tableBody">
+                        <!-- Data injected by JS -->
+                    </tbody>
+                    <tfoot class="bg-slate-900 text-white font-black sticky bottom-0">
+                        <tr>
+                            <td class="px-6 py-5 text-right uppercase tracking-widest" colspan="2">Total Terfilter</td>
+                            <td class="px-6 py-5 text-right currency-cell text-amber-400 text-lg" id="footerTotal">0</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        
+        <div class="mt-8 flex flex-col items-center gap-2 no-print">
+            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-[0.3em]">Official Development Plan Dashboards</p>
+            <div class="h-1 w-20 bg-slate-200 rounded-full" id="peakYearContainer">Puncak Target: <span id="peakYear">-</span></div>
+        </div>
+    </main>
+
+    <script>
+        // --- DATASET ---
+        const rawData = [
+            {
+                id: "jalan",
+                objective: "MENINGKATKAN JALAN DALAM KONDISI MANTAP",
+                color: "blue",
+                items: [
+                    { action: "Pembangunan Ruas Jalan Bajayau Tengah – Buas – Buas (Sawaja) Kec. Daha Barat (Lanjutan)", source: "APBD", budget: 6005040000 },
+                    { action: "Rehabilitasi Ruas Jalan Sungai Raya Selatan – Malutu – Goa Berangin Kec. Sungai Raya (Lanjutan)", source: "APBD", budget: 4709948000 },
+                    { action: "Rehabilitasi Ruas Jalan Bakarung – Tabihi – Karang Jawa Kec. Padang Batung (Lanjutan)", source: "APBD", budget: 4700030000 },
+                    { action: "Rehabilitasi Jl. Pangeran Antasari – SP. Loklua Kec. Kandangan", source: "APBD", budget: 3269018000 },
+                    { action: "Rehabilitasi Ruas Jalan Menuju Stadion 2 Desember Kec. Kandangan", source: "APBD", budget: 3460703000 },
+                    { action: "Rehabilitasi Ruas Jalan Angkinang Selatan – Tawia – Wawaran Kec. Angkinang", source: "APBD", budget: 3416395000 },
+                    { action: "Pengamanan Badan Jalan Ruas Taniran Selatan Kubah – Buntut/Wawaran Kec. Angkinang (Lanjutan)", source: "APBD", budget: 861524200 },
+                    { action: "Rekonstruksi Ruas Jalan Samuda – Bajayau Kec. Daha Barat (DBH Sawit Tahap 4)", source: "DBH Sawit", budget: 1883534000 },
+                    { action: "Peningkatan Struktur Ruas Jalan Simpang Malutu – Pahampangan Kec. Padang Batung", source: "APBD", budget: 3015840000 },
+                    { action: "Rekonstruksi Ruas Jalan Bamban Tengah – Loknyiur – Bamban (Tibung) – Martajiwa Kec. Angkinang", source: "APBD", budget: 2998919000 },
+                    { action: "Rekonstruksi Ruas Jalan Bayanan – Habirau (Jl. Inpres) dan Jl. Gerilya Kec. Daha Selatan", source: "APBD", budget: 2769426000 },
+                    { action: "Rekonstruksi Ruas Jalan Loksado – Loklahung Kec. Loksado", source: "APBD", budget: 1496923000 },
+                    { action: "Rekonstruksi Ruas Jalan Ds. Sungai Raya Utara Kec. Sungai Raya", source: "APBD", budget: 796000000 },
+                    { action: "Rekonstruksi Ruas Jalan Tambangan – Baruh Jaya dan Ruas Jl. Sungai Bagandi Kec. Daha Selatan", source: "APBD", budget: 4190204550 },
+                    { action: "Pembangunan Ruas Jalan Loksado – Pantai Dusin Kec. Loksado", source: "APBD", budget: 1676500000 },
+                    { action: "Pelebaran Ruas Jalan Simpang Hamalau – Teluk Pinang Kec. Sungai Raya", source: "APBD", budget: 161100000 },
+                    { action: "Pelebaran Ruas Jalan Taminung Kec. Sungai Raya (Lanjutan)", source: "APBD", budget: 161100000 },
+                    { action: "Pelebaran Ruas Jalan Telaga Langsat – Pakuan Timur Kec. Telaga Langsat", source: "APBD", budget: 161100000 },
+                    { action: "Pelebaran Ruas Jalan Halayung – Hantarukung Kec. Simpur", source: "APBD", budget: 161100000 },
+                    { action: "Peningkatan Struktur Ruas Jalan Sakincung – Ds. Hakurung Dalam Kec. Daha Utara", source: "APBD", budget: 191798000 },
+                    { action: "Pelebaran Ruas Jalan Ambarai – Madang Kec. Padang Batung", source: "APBD", budget: 161049600 },
+                    { action: "Pelebaran Ruas Jalan Tanjungan – Sp. 10 Batang Kulur – Sungai Kali Kec. Sungai Raya", source: "APBD", budget: 161100000 },
+                    { action: "Pelebaran Ruas Jalan Taal Jarau – Simpang Baru/Tampang Kec. Sungai Raya", source: "APBD", budget: 161100000 },
+                    { action: "Pelebaran Ruas Jalan Sungai Raya Selatan – Sarang Halang Kec. Sungai Raya", source: "APBD", budget: 161100000 },
+                    { action: "Pelebaran Ruas Jalan Tajun – SP.3 Muara Paring Agung Kec. Sungai Raya", source: "APBD", budget: 186137800 },
+                    { action: "Pembangunan Ruas Jalan Balimau – Murung Dalam – Muning Dalam Kec. Kalumpang (Karya Bakti)", source: "APBD", budget: 8006368000 },
+                    { action: "Peningkatan Struktur Ruas Jalan Malilingin – Lokbahan – Paniungan Kec. Padang Batung (Karya Bakti)", source: "APBD", budget: 1997520000 },
+                    { action: "Peningkatan Struktur Ruas Jalan Asam Duhat – Ds. Pantai Ulin Kec. Simpur (TMMD)", source: "APBD", budget: 1244760000 }
+                ]
+            },
+            {
+                id: "jembatan",
+                objective: "MENINGKATKAN JEMBATAN DALAM KONDISI BAIK",
+                color: "cyan",
+                items: [
+                    { action: "Pembangunan Jembatan Bubuih Kec. Loksado", source: "APBD", budget: 5905775650 },
+                    { action: "Penggantian Jembatan Ruas Jalan Batu Laki – Muara Pipi’i Kec. Padang Batung", source: "APBD", budget: 2622532850 },
+                    { action: "Penggantian Jembatan Ruas Jalan Ds. Siang Gantung Kec. Daha Barat", source: "APBD", budget: 1999097900 },
+                    { action: "Penggantian Jembatan Sei Binglu Ds. Balimau Kec. Kalumpang", source: "APBD", budget: 1693505000 },
+                    { action: "Penggantian Jembatan Ruas Jalan Mawangi – Bukuanin – Telaga Langsat Kec. Telaga Langsat", source: "APBD", budget: 1497834100 }
+                ]
+            }
+        ];
+
+        // --- CORE FUNCTIONS ---
+        const formatIDR = (n) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(n);
+
+        function renderTable(filter) {
+            const btnAll = document.getElementById('btn-all');
+            const btnJalan = document.getElementById('btn-jalan');
+            const btnJembatan = document.getElementById('btn-jembatan');
+            const tbody = document.getElementById('tableBody');
+            const footerTotal = document.getElementById('footerTotal');
+
+            if (!tbody || !footerTotal) return;
+
+            // UI State Update
+            document.querySelectorAll('button[id^="btn-"]').forEach(b => {
+                b.className = "px-5 py-2 text-xs font-bold rounded-lg transition-all text-slate-500 hover:text-slate-800";
+            });
+            const active = document.getElementById(`btn-${filter}`);
+            if (active) active.className = "px-5 py-2 text-xs font-bold rounded-lg transition-all bg-white text-slate-900 shadow-sm";
+
+            tbody.innerHTML = '';
+            let filteredTotal = 0;
+
+            rawData.forEach(group => {
+                if (filter !== 'all' && group.id !== filter) return;
+
+                // Category Header
+                const hRow = document.createElement('tr');
+                hRow.className = "bg-slate-50/80 font-black text-slate-700 break-inside-avoid";
+                hRow.innerHTML = `<td colspan="3" class="px-6 py-3 border-y border-slate-200 text-xs tracking-widest"><i class="fa-solid fa-folder-open mr-2 text-amber-500"></i>${group.objective}</td>`;
+                tbody.appendChild(hRow);
+
+                group.items.forEach(item => {
+                    filteredTotal += item.budget;
+                    const row = document.createElement('tr');
+                    row.className = "hover:bg-slate-50/50 transition group";
+                    row.innerHTML = `
+                        <td class="px-6 py-4 text-slate-600 font-medium group-hover:text-slate-900">${item.action}</td>
+                        <td class="px-4 py-4 text-center">
+                            <span class="px-3 py-1 rounded-full text-[10px] font-black tracking-tighter ${item.source === 'APBD' ? 'bg-slate-100 text-slate-500' : 'bg-amber-100 text-amber-700'}">${item.source}</span>
+                        </td>
+                        <td class="px-6 py-4 currency-cell font-bold text-slate-800 bg-slate-50/20">${formatIDR(item.budget).replace('Rp', '')}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            });
+            footerTotal.innerText = formatIDR(filteredTotal);
+        }
+
+        // --- INITIALIZATION & CHARTS ---
+        window.onload = function() {
+            const roadBudget = rawData[0].items.reduce((a, b) => a + b.budget, 0);
+            const bridgeBudget = rawData[1].items.reduce((a, b) => a + b.budget, 0);
+            const totalOverall = roadBudget + bridgeBudget;
+            
+            const dbhSawitItem = rawData[0].items.find(i => i.source.includes('Sawit'));
+            const dbhSawit = dbhSawitItem ? dbhSawitItem.budget : 0;
+            const totalAPBD = totalOverall - dbhSawit;
+
+            const totalBudgetEl = document.getElementById('totalBudget');
+            const totalRoadsEl = document.getElementById('totalRoads');
+            const totalBridgesEl = document.getElementById('totalBridges');
+            const peakYearEl = document.getElementById('peakYear');
+
+            if (totalBudgetEl) totalBudgetEl.innerText = formatIDR(totalOverall);
+            if (totalRoadsEl) totalRoadsEl.innerText = rawData[0].items.length;
+            if (totalBridgesEl) totalBridgesEl.innerText = rawData[1].items.length;
+            if (peakYearEl) peakYearEl.innerText = '2026';
+
+            // Charts
+            const commonOptions = { 
+                responsive: true, 
+                maintainAspectRatio: false, 
+                plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, font: { weight: 'bold', size: 10 } } } } 
+            };
+
+            const catCtx = document.getElementById('categoryChart');
+            if (catCtx) {
+                new Chart(catCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['JALAN', 'JEMBATAN'],
+                        datasets: [{
+                            data: [roadBudget, bridgeBudget],
+                            backgroundColor: ['#3b82f6', '#06b6d4'],
+                            borderRadius: 8,
+                            barThickness: 50
+                        }]
+                    },
+                    options: {
+                        ...commonOptions,
+                        scales: { 
+                            y: { ticks: { callback: (v) => v / 1e9 + ' M' }, grid: { borderDash: [5, 5] } },
+                            x: { grid: { display: false } }
+                        }
+                    }
+                });
+            }
+
+            const srcCtx = document.getElementById('sourceChart');
+            if (srcCtx) {
+                new Chart(srcCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['APBD', 'DBH SAWIT'],
+                        datasets: [{
+                            data: [totalAPBD, dbhSawit],
+                            backgroundColor: ['#1e293b', '#f59e0b'],
+                            borderWidth: 0,
+                            cutout: '70%'
+                        }]
+                    },
+                    options: commonOptions
+                });
+            }
+
+            renderTable('all');
+        };
+    </script>
+</body>
+</html>
