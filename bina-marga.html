@@ -75,7 +75,7 @@
                     </div>
                     <div class="flex flex-col">
                         <span class="font-bold text-lg leading-tight uppercase tracking-wide">Bidang Bina Marga</span>
-                        <span class="text-xs text-slate-400 font-medium">Infrastruktur Jalan & Jembatan - Tahun 2026</span>
+                        <span class="text-xs text-slate-400 font-medium">Masterplan Infrastruktur 2026-2030</span>
                     </div>
                 </div>
                 <div>
@@ -96,56 +96,36 @@
             <!-- Total Anggaran -->
             <div class="bg-white rounded-2xl shadow-sm p-6 border border-slate-100 card relative overflow-hidden group">
                 <div class="absolute right-0 top-0 h-full w-1.5 bg-amber-500"></div>
-                <div class="flex justify-between items-start">
-                    <div>
-                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Total Pagu Indikatif</p>
-                        <h3 class="text-xl md:text-2xl font-black text-slate-800 mt-2 tracking-tighter" id="totalBudget">Rp 0</h3>
-                    </div>
-                    <div class="p-3 bg-amber-50 rounded-xl text-amber-600 group-hover:bg-amber-500 group-hover:text-white transition-all duration-300">
-                        <i class="fa-solid fa-vault text-xl"></i>
-                    </div>
+                <div>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Total Pagu (5 Tahun)</p>
+                    <h3 class="text-xl md:text-2xl font-black text-slate-800 mt-2 tracking-tighter" id="totalBudget">Rp 0</h3>
                 </div>
             </div>
 
             <!-- Total Jalan -->
             <div class="bg-white rounded-2xl shadow-sm p-6 border border-slate-100 card relative overflow-hidden group">
                 <div class="absolute right-0 top-0 h-full w-1.5 bg-blue-500"></div>
-                <div class="flex justify-between items-start">
-                    <div>
-                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Ruas Jalan</p>
-                        <h3 class="text-xl md:text-2xl font-black text-slate-800 mt-2" id="totalRoads">0</h3>
-                    </div>
-                    <div class="p-3 bg-blue-50 rounded-xl text-blue-600 group-hover:bg-blue-500 group-hover:text-white transition-all duration-300">
-                        <i class="fa-solid fa-map-location-dot text-xl"></i>
-                    </div>
+                <div>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Pekerjaan Jalan</p>
+                    <h3 class="text-xl md:text-2xl font-black text-slate-800 mt-2" id="totalRoads">0</h3>
                 </div>
             </div>
 
             <!-- Total Jembatan -->
             <div class="bg-white rounded-2xl shadow-sm p-6 border border-slate-100 card relative overflow-hidden group">
                 <div class="absolute right-0 top-0 h-full w-1.5 bg-cyan-500"></div>
-                <div class="flex justify-between items-start">
-                    <div>
-                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Unit Jembatan</p>
-                        <h3 class="text-xl md:text-2xl font-black text-slate-800 mt-2" id="totalBridges">0</h3>
-                    </div>
-                    <div class="p-3 bg-cyan-50 rounded-xl text-cyan-600 group-hover:bg-cyan-500 group-hover:text-white transition-all duration-300">
-                        <i class="fa-solid fa-bridge text-xl"></i>
-                    </div>
+                <div>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Pekerjaan Jembatan</p>
+                    <h3 class="text-xl md:text-2xl font-black text-slate-800 mt-2" id="totalBridges">0</h3>
                 </div>
             </div>
 
-            <!-- Sumber Dana -->
+            <!-- Peak Year -->
             <div class="bg-white rounded-2xl shadow-sm p-6 border border-slate-100 card relative overflow-hidden group">
                 <div class="absolute right-0 top-0 h-full w-1.5 bg-slate-800"></div>
-                <div class="flex justify-between items-start">
-                    <div>
-                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Sumber Utama</p>
-                        <h3 class="text-xl md:text-2xl font-black text-slate-800 mt-2">APBD & DBH</h3>
-                    </div>
-                    <div class="p-3 bg-slate-100 rounded-xl text-slate-600 group-hover:bg-slate-800 group-hover:text-white transition-all duration-300">
-                        <i class="fa-solid fa-landmark text-xl"></i>
-                    </div>
+                <div>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Puncak Belanja</p>
+                    <h3 class="text-xl md:text-2xl font-black text-slate-800 mt-2" id="peakYearDisplay">-</h3>
                 </div>
             </div>
         </div>
@@ -154,19 +134,19 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 card chart-container">
                 <div class="flex justify-between items-center mb-6">
-                    <h4 class="text-sm font-black text-slate-700 uppercase tracking-wider"><i class="fa-solid fa-chart-pie mr-2 text-amber-500"></i>Alokasi Anggaran Per Bidang</h4>
+                    <h4 class="text-sm font-black text-slate-700 uppercase tracking-wider"><i class="fa-solid fa-chart-line mr-2 text-amber-500"></i>Tren Anggaran 2026-2030</h4>
                 </div>
                 <div class="relative h-64">
-                    <canvas id="categoryChart"></canvas>
+                    <canvas id="trendChart"></canvas>
                 </div>
             </div>
             
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 card chart-container">
                 <div class="flex justify-between items-center mb-6">
-                    <h4 class="text-sm font-black text-slate-700 uppercase tracking-wider"><i class="fa-solid fa-coins mr-2 text-amber-500"></i>Proporsi Sumber Pendanaan</h4>
+                    <h4 class="text-sm font-black text-slate-700 uppercase tracking-wider"><i class="fa-solid fa-chart-pie mr-2 text-amber-500"></i>Proporsi Kategori</h4>
                 </div>
                 <div class="relative h-64">
-                    <canvas id="sourceChart"></canvas>
+                    <canvas id="categoryChart"></canvas>
                 </div>
             </div>
         </div>
@@ -176,14 +156,17 @@
             <div class="px-6 py-5 border-b border-slate-100 flex flex-col md:flex-row justify-between items-center bg-slate-50/50 gap-4">
                 <div class="flex items-center gap-3">
                     <div class="w-2 h-8 bg-amber-500 rounded-full"></div>
-                    <h3 class="text-lg font-black text-slate-800">MATRIKS RENCANA AKSI BINA MARGA</h3>
+                    <h3 class="text-lg font-black text-slate-800">MATRIKS RENCANA AKSI</h3>
                 </div>
                 
                 <!-- Filter Tabs -->
-                <div class="flex bg-slate-200 p-1 rounded-xl no-print">
-                    <button onclick="renderTable('all')" id="btn-all" class="px-5 py-2 text-xs font-bold rounded-lg transition-all bg-white text-slate-900 shadow-sm">SEMUA</button>
-                    <button onclick="renderTable('jalan')" id="btn-jalan" class="px-5 py-2 text-xs font-bold rounded-lg transition-all text-slate-500 hover:text-slate-800">JALAN</button>
-                    <button onclick="renderTable('jembatan')" id="btn-jembatan" class="px-5 py-2 text-xs font-bold rounded-lg transition-all text-slate-500 hover:text-slate-800">JEMBATAN</button>
+                <div class="flex flex-wrap gap-1 bg-slate-200 p-1 rounded-xl no-print">
+                    <button onclick="updateFilter('year', 'all')" id="btn-year-all" class="px-3 py-1.5 text-xs font-bold rounded-lg transition-all bg-white text-slate-900 shadow-sm">SEMUA</button>
+                    <button onclick="updateFilter('year', '2026')" id="btn-year-2026" class="px-3 py-1.5 text-xs font-bold rounded-lg transition-all text-slate-500 hover:text-slate-800">2026</button>
+                    <button onclick="updateFilter('year', '2027')" id="btn-year-2027" class="px-3 py-1.5 text-xs font-bold rounded-lg transition-all text-slate-500 hover:text-slate-800">2027</button>
+                    <button onclick="updateFilter('year', '2028')" id="btn-year-2028" class="px-3 py-1.5 text-xs font-bold rounded-lg transition-all text-slate-500 hover:text-slate-800">2028</button>
+                    <button onclick="updateFilter('year', '2029')" id="btn-year-2029" class="px-3 py-1.5 text-xs font-bold rounded-lg transition-all text-slate-500 hover:text-slate-800">2029</button>
+                    <button onclick="updateFilter('year', '2030')" id="btn-year-2030" class="px-3 py-1.5 text-xs font-bold rounded-lg transition-all text-slate-500 hover:text-slate-800">2030</button>
                 </div>
             </div>
             
@@ -191,8 +174,8 @@
                 <table class="min-w-full divide-y divide-slate-200 text-sm">
                     <thead class="bg-slate-100 sticky top-0 z-20">
                         <tr>
-                            <th class="px-6 py-4 text-left text-xs font-black text-slate-500 uppercase tracking-widest border-b-2 border-slate-200">Uraian Pekerjaan / Rencana Aksi</th>
-                            <th class="px-4 py-4 text-center text-xs font-black text-slate-500 uppercase tracking-widest border-b-2 border-slate-200">Sumber Dana</th>
+                            <th class="px-6 py-4 text-left text-xs font-black text-slate-500 uppercase tracking-widest border-b-2 border-slate-200 w-[60%]">Uraian Pekerjaan / Rencana Aksi</th>
+                            <th class="px-4 py-4 text-center text-xs font-black text-slate-500 uppercase tracking-widest border-b-2 border-slate-200">Tahun</th>
                             <th class="px-6 py-4 text-right text-xs font-black text-slate-900 uppercase tracking-widest border-b-2 border-amber-500 bg-amber-50/30">Pagu Indikatif (Rp)</th>
                         </tr>
                     </thead>
@@ -211,178 +194,202 @@
         
         <div class="mt-8 flex flex-col items-center gap-2 no-print">
             <p class="text-[10px] text-slate-400 font-bold uppercase tracking-[0.3em]">Official Development Plan Dashboards</p>
-            <div class="h-1 w-20 bg-slate-200 rounded-full" id="peakYearContainer">Puncak Target: <span id="peakYear">-</span></div>
         </div>
     </main>
 
     <script>
-        // --- DATASET ---
+        // --- DATASET MERGED ---
+        // Combination of original 2026 data + New 2027-2030 Data
         const rawData = [
-            {
-                id: "jalan",
-                objective: "MENINGKATKAN JALAN DALAM KONDISI MANTAP",
-                color: "blue",
-                items: [
-                    { action: "Pembangunan Ruas Jalan Bajayau Tengah – Buas – Buas (Sawaja) Kec. Daha Barat (Lanjutan)", source: "APBD", budget: 6005040000 },
-                    { action: "Rehabilitasi Ruas Jalan Sungai Raya Selatan – Malutu – Goa Berangin Kec. Sungai Raya (Lanjutan)", source: "APBD", budget: 4709948000 },
-                    { action: "Rehabilitasi Ruas Jalan Bakarung – Tabihi – Karang Jawa Kec. Padang Batung (Lanjutan)", source: "APBD", budget: 4700030000 },
-                    { action: "Rehabilitasi Jl. Pangeran Antasari – SP. Loklua Kec. Kandangan", source: "APBD", budget: 3269018000 },
-                    { action: "Rehabilitasi Ruas Jalan Menuju Stadion 2 Desember Kec. Kandangan", source: "APBD", budget: 3460703000 },
-                    { action: "Rehabilitasi Ruas Jalan Angkinang Selatan – Tawia – Wawaran Kec. Angkinang", source: "APBD", budget: 3416395000 },
-                    { action: "Pengamanan Badan Jalan Ruas Taniran Selatan Kubah – Buntut/Wawaran Kec. Angkinang (Lanjutan)", source: "APBD", budget: 861524200 },
-                    { action: "Rekonstruksi Ruas Jalan Samuda – Bajayau Kec. Daha Barat (DBH Sawit Tahap 4)", source: "DBH Sawit", budget: 1883534000 },
-                    { action: "Peningkatan Struktur Ruas Jalan Simpang Malutu – Pahampangan Kec. Padang Batung", source: "APBD", budget: 3015840000 },
-                    { action: "Rekonstruksi Ruas Jalan Bamban Tengah – Loknyiur – Bamban (Tibung) – Martajiwa Kec. Angkinang", source: "APBD", budget: 2998919000 },
-                    { action: "Rekonstruksi Ruas Jalan Bayanan – Habirau (Jl. Inpres) dan Jl. Gerilya Kec. Daha Selatan", source: "APBD", budget: 2769426000 },
-                    { action: "Rekonstruksi Ruas Jalan Loksado – Loklahung Kec. Loksado", source: "APBD", budget: 1496923000 },
-                    { action: "Rekonstruksi Ruas Jalan Ds. Sungai Raya Utara Kec. Sungai Raya", source: "APBD", budget: 796000000 },
-                    { action: "Rekonstruksi Ruas Jalan Tambangan – Baruh Jaya dan Ruas Jl. Sungai Bagandi Kec. Daha Selatan", source: "APBD", budget: 4190204550 },
-                    { action: "Pembangunan Ruas Jalan Loksado – Pantai Dusin Kec. Loksado", source: "APBD", budget: 1676500000 },
-                    { action: "Pelebaran Ruas Jalan Simpang Hamalau – Teluk Pinang Kec. Sungai Raya", source: "APBD", budget: 161100000 },
-                    { action: "Pelebaran Ruas Jalan Taminung Kec. Sungai Raya (Lanjutan)", source: "APBD", budget: 161100000 },
-                    { action: "Pelebaran Ruas Jalan Telaga Langsat – Pakuan Timur Kec. Telaga Langsat", source: "APBD", budget: 161100000 },
-                    { action: "Pelebaran Ruas Jalan Halayung – Hantarukung Kec. Simpur", source: "APBD", budget: 161100000 },
-                    { action: "Peningkatan Struktur Ruas Jalan Sakincung – Ds. Hakurung Dalam Kec. Daha Utara", source: "APBD", budget: 191798000 },
-                    { action: "Pelebaran Ruas Jalan Ambarai – Madang Kec. Padang Batung", source: "APBD", budget: 161049600 },
-                    { action: "Pelebaran Ruas Jalan Tanjungan – Sp. 10 Batang Kulur – Sungai Kali Kec. Sungai Raya", source: "APBD", budget: 161100000 },
-                    { action: "Pelebaran Ruas Jalan Taal Jarau – Simpang Baru/Tampang Kec. Sungai Raya", source: "APBD", budget: 161100000 },
-                    { action: "Pelebaran Ruas Jalan Sungai Raya Selatan – Sarang Halang Kec. Sungai Raya", source: "APBD", budget: 161100000 },
-                    { action: "Pelebaran Ruas Jalan Tajun – SP.3 Muara Paring Agung Kec. Sungai Raya", source: "APBD", budget: 186137800 },
-                    { action: "Pembangunan Ruas Jalan Balimau – Murung Dalam – Muning Dalam Kec. Kalumpang (Karya Bakti)", source: "APBD", budget: 8006368000 },
-                    { action: "Peningkatan Struktur Ruas Jalan Malilingin – Lokbahan – Paniungan Kec. Padang Batung (Karya Bakti)", source: "APBD", budget: 1997520000 },
-                    { action: "Peningkatan Struktur Ruas Jalan Asam Duhat – Ds. Pantai Ulin Kec. Simpur (TMMD)", source: "APBD", budget: 1244760000 }
-                ]
-            },
-            {
-                id: "jembatan",
-                objective: "MENINGKATKAN JEMBATAN DALAM KONDISI BAIK",
-                color: "cyan",
-                items: [
-                    { action: "Pembangunan Jembatan Bubuih Kec. Loksado", source: "APBD", budget: 5905775650 },
-                    { action: "Penggantian Jembatan Ruas Jalan Batu Laki – Muara Pipi’i Kec. Padang Batung", source: "APBD", budget: 2622532850 },
-                    { action: "Penggantian Jembatan Ruas Jalan Ds. Siang Gantung Kec. Daha Barat", source: "APBD", budget: 1999097900 },
-                    { action: "Penggantian Jembatan Sei Binglu Ds. Balimau Kec. Kalumpang", source: "APBD", budget: 1693505000 },
-                    { action: "Penggantian Jembatan Ruas Jalan Mawangi – Bukuanin – Telaga Langsat Kec. Telaga Langsat", source: "APBD", budget: 1497834100 }
-                ]
-            }
+            // 2026 Data (Original)
+            { action: "Pembangunan Ruas Jalan Bajayau Tengah – Buas – Buas (Sawaja) Kec. Daha Barat (Lanjutan)", year: 2026, budget: 6005040000, type: "jalan" },
+            { action: "Rehabilitasi Ruas Jalan Sungai Raya Selatan – Malutu – Goa Berangin Kec. Sungai Raya (Lanjutan)", year: 2026, budget: 4709948000, type: "jalan" },
+            { action: "Rehabilitasi Ruas Jalan Bakarung – Tabihi – Karang Jawa Kec. Padang Batung (Lanjutan)", year: 2026, budget: 4700030000, type: "jalan" },
+            { action: "Rehabilitasi Jl. Pangeran Antasari – SP. Loklua Kec. Kandangan", year: 2026, budget: 3269018000, type: "jalan" },
+            { action: "Rehabilitasi Ruas Jalan Menuju Stadion 2 Desember Kec. Kandangan", year: 2026, budget: 3460703000, type: "jalan" },
+            { action: "Rehabilitasi Ruas Jalan Angkinang Selatan – Tawia – Wawaran Kec. Angkinang", year: 2026, budget: 3416395000, type: "jalan" },
+            { action: "Taniran Selatan Kubah – Buntut Taniran (Update)", year: 2026, budget: 18000000000, type: "jalan" }, // Updated value from new data
+            { action: "Rekonstruksi Ruas Jalan Samuda – Bajayau Kec. Daha Barat (DBH Sawit Tahap 4)", year: 2026, budget: 1883534000, type: "jalan" },
+            { action: "Peningkatan Struktur Ruas Jalan Simpang Malutu – Pahampangan Kec. Padang Batung", year: 2026, budget: 3015840000, type: "jalan" },
+            { action: "Rekonstruksi Ruas Jalan Bamban Tengah – Loknyiur – Bamban (Tibung) – Martajiwa", year: 2026, budget: 2998919000, type: "jalan" },
+            { action: "Rekonstruksi Ruas Jalan Bayanan – Habirau (Jl. Inpres) dan Jl. Gerilya", year: 2026, budget: 2769426000, type: "jalan" },
+            { action: "Pembangunan Jembatan Bubuih Kec. Loksado", year: 2026, budget: 5905775650, type: "jembatan" },
+            { action: "Penggantian Jembatan Ruas Jalan Batu Laki – Muara Pipi’i Kec. Padang Batung", year: 2026, budget: 2622532850, type: "jembatan" },
+            { action: "Penggantian Jembatan Ruas Jalan Ds. Siang Gantung Kec. Daha Barat", year: 2026, budget: 1999097900, type: "jembatan" },
+            
+            // 2027 Data (New)
+            { action: "Lanjutan Perkerasan Balimau – Murung Dalam – Muning Dalam", year: 2027, budget: 12000000000, type: "jalan" },
+            { action: "Lanjutan Perkerasan Bajayau Tengah – Buas – Buas", year: 2027, budget: 12000000000, type: "jalan" },
+            { action: "Rekonstruksi Jl. Muning Tengah – Batang Alai", year: 2027, budget: 20000000000, type: "jalan" },
+            { action: "Jl. Merah Johansyah – Jl. Melati", year: 2027, budget: 3600000000, type: "jalan" },
+            { action: "Jl. Jend. Sudirman (IKK Kandangan)", year: 2027, budget: 10800000000, type: "jalan" },
+            { action: "Angkinang – Telaga Langsat", year: 2027, budget: 16700000000, type: "jalan" },
+            { action: "Simpur – Simpang Bilui", year: 2027, budget: 1500000000, type: "jalan" },
+            { action: "Hariti – Sungai Raya Selatan", year: 2027, budget: 8000000000, type: "jalan" },
+            { action: "Mawangi – Bukuanin – Telaga Langsat", year: 2027, budget: 25000000000, type: "jalan" },
+            { action: "Sungai Kudung – Kalinduku", year: 2027, budget: 4400000000, type: "jalan" },
+            { action: "Ruas Jalan Ulin – Tanggul (Balai Mas)", year: 2027, budget: 4065489000, type: "jalan" },
+            { action: "Ruas Jalan Halaban", year: 2027, budget: 3342132000, type: "jalan" },
+            { action: "Anjiran Rantauan – Taniran Tengah", year: 2027, budget: 2698885000, type: "jalan" },
+            { action: "Loksado – Haratai", year: 2027, budget: 15000000000, type: "jalan" },
+            { action: "Batang Kulur Kanan – Batang Kulur Kiri", year: 2027, budget: 2237991300, type: "jalan" },
+            { action: "H. Izim – Pantai Ulin", year: 2027, budget: 1201030200, type: "jalan" },
+            { action: "Loklahung – Kamawakan", year: 2027, budget: 10000000000, type: "jalan" },
+            { action: "Malilingin – Muara Hariang", year: 2027, budget: 3522750000, type: "jalan" },
+            { action: "Banua Hanyar – Tanjung Selor", year: 2027, budget: 3001519000, type: "jalan" },
+            { action: "Jembatan Pabahanan", year: 2027, budget: 3498761160, type: "jembatan" },
+            { action: "Jembatan Mangapui", year: 2027, budget: 2323495300, type: "jembatan" },
+            { action: "Jembatan Tanuhi – Ulang", year: 2027, budget: 1700448640, type: "jembatan" },
+            { action: "Jembatan Gantung Hulu Banyu", year: 2027, budget: 3384698600, type: "jembatan" },
+            { action: "Pembangunan Jembatan Daha Selatan", year: 2027, budget: 50000000000, type: "jembatan" },
+
+            // 2028 Data (New)
+            { action: "Loklahung – Malaris", year: 2028, budget: 3600000000, type: "jalan" },
+            { action: "Wasah Hulu – Amparaya – Simpur", year: 2028, budget: 19100000000, type: "jalan" },
+            { action: "Singakarsa – Palas", year: 2028, budget: 16000000000, type: "jalan" },
+            { action: "Padang Batung – Batu Laki – Malilingin", year: 2028, budget: 18000000000, type: "jalan" },
+            { action: "Rel Angkinang – TMMD Angkinang", year: 2028, budget: 5400000000, type: "jalan" },
+
+            // 2029 Data (New)
+            { action: "Sungai Paring – Sei Hanyar", year: 2029, budget: 8800000000, type: "jalan" },
+            { action: "Mandapai – Madang", year: 2029, budget: 8700000000, type: "jalan" },
+            { action: "Kalumpang – Baruh", year: 2029, budget: 8200000000, type: "jalan" },
+            { action: "Malinau – Katingin – Kamawakan", year: 2029, budget: 25000000000, type: "jalan" },
+            { action: "Tanah Habang – Desa Simpur", year: 2029, budget: 1600000000, type: "jalan" },
+            { action: "Simpang Batang Kulur Kiri – Tatas", year: 2029, budget: 3600000000, type: "jalan" },
+
+            // 2030 Data (New)
+            { action: "Sp. 4 Mesjid Sirih – Sarang Nyamuk", year: 2030, budget: 9200000000, type: "jalan" },
+            { action: "Sp. 4 Baru/Tampang – Simpang Bilui", year: 2030, budget: 5700000000, type: "jalan" },
+            { action: "Amparaya – Karangan – Hanau", year: 2030, budget: 6500000000, type: "jalan" },
+            { action: "Sp. Mandampa Tel. Sili-Sili – Sp. Sungai", year: 2030, budget: 7400000000, type: "jalan" },
+            { action: "Angkinang – Kayu Abang – Panggang Hijau", year: 2030, budget: 10500000000, type: "jalan" },
+            { action: "Bamban Selatan – Tanggang – Panggang Hijau", year: 2030, budget: 5400000000, type: "jalan" }
         ];
+
+        let currentFilter = { year: 'all' };
 
         // --- CORE FUNCTIONS ---
         const formatIDR = (n) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(n);
 
-        function renderTable(filter) {
-            const btnAll = document.getElementById('btn-all');
-            const btnJalan = document.getElementById('btn-jalan');
-            const btnJembatan = document.getElementById('btn-jembatan');
-            const tbody = document.getElementById('tableBody');
-            const footerTotal = document.getElementById('footerTotal');
-
-            if (!tbody || !footerTotal) return;
-
-            // UI State Update
-            document.querySelectorAll('button[id^="btn-"]').forEach(b => {
-                b.className = "px-5 py-2 text-xs font-bold rounded-lg transition-all text-slate-500 hover:text-slate-800";
+        function updateFilter(type, value) {
+            currentFilter[type] = value;
+            
+            // UI Update
+            document.querySelectorAll(`button[id^="btn-${type}-"]`).forEach(b => {
+                b.className = "px-3 py-1.5 text-xs font-bold rounded-lg transition-all text-slate-500 hover:text-slate-800";
             });
-            const active = document.getElementById(`btn-${filter}`);
-            if (active) active.className = "px-5 py-2 text-xs font-bold rounded-lg transition-all bg-white text-slate-900 shadow-sm";
-
-            tbody.innerHTML = '';
-            let filteredTotal = 0;
-
-            rawData.forEach(group => {
-                if (filter !== 'all' && group.id !== filter) return;
-
-                // Category Header
-                const hRow = document.createElement('tr');
-                hRow.className = "bg-slate-50/80 font-black text-slate-700 break-inside-avoid";
-                hRow.innerHTML = `<td colspan="3" class="px-6 py-3 border-y border-slate-200 text-xs tracking-widest"><i class="fa-solid fa-folder-open mr-2 text-amber-500"></i>${group.objective}</td>`;
-                tbody.appendChild(hRow);
-
-                group.items.forEach(item => {
-                    filteredTotal += item.budget;
-                    const row = document.createElement('tr');
-                    row.className = "hover:bg-slate-50/50 transition group";
-                    row.innerHTML = `
-                        <td class="px-6 py-4 text-slate-600 font-medium group-hover:text-slate-900">${item.action}</td>
-                        <td class="px-4 py-4 text-center">
-                            <span class="px-3 py-1 rounded-full text-[10px] font-black tracking-tighter ${item.source === 'APBD' ? 'bg-slate-100 text-slate-500' : 'bg-amber-100 text-amber-700'}">${item.source}</span>
-                        </td>
-                        <td class="px-6 py-4 currency-cell font-bold text-slate-800 bg-slate-50/20">${formatIDR(item.budget).replace('Rp', '')}</td>
-                    `;
-                    tbody.appendChild(row);
-                });
-            });
-            footerTotal.innerText = formatIDR(filteredTotal);
+            document.getElementById(`btn-${type}-${value}`).className = "px-3 py-1.5 text-xs font-bold rounded-lg transition-all bg-white text-slate-900 shadow-sm";
+            
+            renderTable();
         }
 
-        // --- INITIALIZATION & CHARTS ---
-        window.onload = function() {
-            const roadBudget = rawData[0].items.reduce((a, b) => a + b.budget, 0);
-            const bridgeBudget = rawData[1].items.reduce((a, b) => a + b.budget, 0);
-            const totalOverall = roadBudget + bridgeBudget;
+        function renderTable() {
+            const tbody = document.getElementById('tableBody');
+            const footerTotal = document.getElementById('footerTotal');
+            tbody.innerHTML = '';
             
-            const dbhSawitItem = rawData[0].items.find(i => i.source.includes('Sawit'));
-            const dbhSawit = dbhSawitItem ? dbhSawitItem.budget : 0;
-            const totalAPBD = totalOverall - dbhSawit;
+            let total = 0;
+            
+            // Sort by Year then Name
+            const sortedData = [...rawData].sort((a, b) => a.year - b.year || a.action.localeCompare(b.action));
 
-            const totalBudgetEl = document.getElementById('totalBudget');
-            const totalRoadsEl = document.getElementById('totalRoads');
-            const totalBridgesEl = document.getElementById('totalBridges');
-            const peakYearEl = document.getElementById('peakYear');
+            sortedData.forEach(item => {
+                if (currentFilter.year !== 'all' && item.year.toString() !== currentFilter.year) return;
+                
+                total += item.budget;
 
-            if (totalBudgetEl) totalBudgetEl.innerText = formatIDR(totalOverall);
-            if (totalRoadsEl) totalRoadsEl.innerText = rawData[0].items.length;
-            if (totalBridgesEl) totalBridgesEl.innerText = rawData[1].items.length;
-            if (peakYearEl) peakYearEl.innerText = '2026';
+                const row = document.createElement('tr');
+                row.className = "hover:bg-slate-50 transition group";
+                row.innerHTML = `
+                    <td class="px-6 py-3 text-slate-600 font-medium text-xs group-hover:text-slate-900 border-l-4 ${item.type === 'jembatan' ? 'border-cyan-400' : 'border-blue-400'} pl-4">
+                        ${item.action}
+                    </td>
+                    <td class="px-4 py-3 text-center">
+                        <span class="px-2 py-1 rounded-md text-[10px] font-bold bg-slate-100 text-slate-600">${item.year}</span>
+                    </td>
+                    <td class="px-6 py-3 currency-cell font-bold text-slate-800 bg-slate-50/20">${formatIDR(item.budget).replace('Rp', '')}</td>
+                `;
+                tbody.appendChild(row);
+            });
+            footerTotal.innerText = formatIDR(total);
+        }
 
-            // Charts
-            const commonOptions = { 
-                responsive: true, 
-                maintainAspectRatio: false, 
-                plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, font: { weight: 'bold', size: 10 } } } } 
-            };
+        // --- INIT & CHARTS ---
+        window.onload = function() {
+            // Stats
+            const totalBudget = rawData.reduce((a, b) => a + b.budget, 0);
+            const roadCount = rawData.filter(i => i.type === 'jalan').length;
+            const bridgeCount = rawData.filter(i => i.type === 'jembatan').length;
 
-            const catCtx = document.getElementById('categoryChart');
-            if (catCtx) {
-                new Chart(catCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['JALAN', 'JEMBATAN'],
-                        datasets: [{
-                            data: [roadBudget, bridgeBudget],
-                            backgroundColor: ['#3b82f6', '#06b6d4'],
-                            borderRadius: 8,
-                            barThickness: 50
-                        }]
-                    },
-                    options: {
-                        ...commonOptions,
-                        scales: { 
-                            y: { ticks: { callback: (v) => v / 1e9 + ' M' }, grid: { borderDash: [5, 5] } },
-                            x: { grid: { display: false } }
-                        }
+            // Yearly aggregation for Peak Calculation and Chart
+            const yearlyData = {};
+            rawData.forEach(item => {
+                if(!yearlyData[item.year]) yearlyData[item.year] = 0;
+                yearlyData[item.year] += item.budget;
+            });
+            const years = Object.keys(yearlyData).sort();
+            const budgets = years.map(y => yearlyData[y]);
+            const peakYear = years.reduce((a, b) => yearlyData[a] > yearlyData[b] ? a : b);
+
+            document.getElementById('totalBudget').innerText = formatIDR(totalBudget);
+            document.getElementById('totalRoads').innerText = roadCount;
+            document.getElementById('totalBridges').innerText = bridgeCount;
+            document.getElementById('peakYearDisplay').innerText = peakYear;
+
+            // Chart 1: Trend
+            new Chart(document.getElementById('trendChart'), {
+                type: 'line',
+                data: {
+                    labels: years,
+                    datasets: [{
+                        label: 'Total Pagu',
+                        data: budgets,
+                        borderColor: '#f59e0b',
+                        backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 6,
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#d97706',
+                        pointBorderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { 
+                        y: { ticks: { callback: v => (v/1e9).toFixed(0) + ' M' } },
+                        x: { grid: { display: false } }
                     }
-                });
-            }
+                }
+            });
 
-            const srcCtx = document.getElementById('sourceChart');
-            if (srcCtx) {
-                new Chart(srcCtx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['APBD', 'DBH SAWIT'],
-                        datasets: [{
-                            data: [totalAPBD, dbhSawit],
-                            backgroundColor: ['#1e293b', '#f59e0b'],
-                            borderWidth: 0,
-                            cutout: '70%'
-                        }]
-                    },
-                    options: commonOptions
-                });
-            }
+            // Chart 2: Proportion
+            const roadBudget = rawData.filter(i => i.type === 'jalan').reduce((a, b) => a + b.budget, 0);
+            const bridgeBudget = rawData.filter(i => i.type === 'jembatan').reduce((a, b) => a + b.budget, 0);
 
-            renderTable('all');
+            new Chart(document.getElementById('categoryChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Jalan', 'Jembatan'],
+                    datasets: [{
+                        data: [roadBudget, bridgeBudget],
+                        backgroundColor: ['#3b82f6', '#06b6d4'],
+                        borderWidth: 0,
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '65%',
+                    plugins: { legend: { position: 'right' } }
+                }
+            });
+
+            renderTable();
         };
     </script>
 </body>
