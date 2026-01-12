@@ -147,7 +147,7 @@
             <div class="px-6 py-4 border-b border-gray-200 flex flex-col md:flex-row justify-between items-center bg-gray-50 gap-4">
                 <div class="flex items-center gap-2">
                     <i class="fa-solid fa-table text-emerald-600"></i>
-                    <h3 class="text-lg font-bold text-gray-800">Matriks Rencana Aksi (Update 2030)</h3>
+                    <h3 class="text-lg font-bold text-gray-800">Matriks Rencana Aksi (Lengkap & Komprehensif)</h3>
                 </div>
                 
                 <!-- Year Tabs -->
@@ -173,61 +173,191 @@
     </main>
 
     <script>
-        // --- DATASET (Updated to include detailed 2030 data) ---
-        // Budget structure: [2026, 2027, 2028, 2029, 2030]
-        
+        // --- DATASET ---
+        // Budget index: [2026, 2027, 2028, 2029, 2030]
         const rawData = [
             {
-                objective: "BANGUNAN GEDUNG: Peningkatan Standar Keselamatan & Kelayakan",
+                objective: "BANGUNAN GEDUNG: Keselamatan & Kelayakan Fungsi",
                 items: [
-                    { action: "Pembangunan Gedung Aula Rakat Mufakat (Lanjutan)", budget: [14782780000, 0, 0, 0, 0] },
-                    { action: "Pembangunan Kantor dan Gedung Diklat BKPSDM", budget: [8000000000, 8000000000, 0, 0, 0] },
-                    { action: "Pembangunan Mal Pelayanan Publik di Negara", budget: [3500000000, 5000000000, 0, 0, 0] },
-                    { action: "Pembangunan Gedung Kesenian Kab. HSS (Lanjutan)", budget: [0, 0, 0, 7000000000, 3500000000] },
-                    { action: "Pembangunan Kawasan Kuliner Bantaran Sungai Amandit (Lanjutan)", budget: [0, 15000000000, 0, 0, 7000000000] },
-                    { action: "Pembangunan Jalan Utama Masuk di Kawasan Perkantoran Kab. HSS (Lanjutan)", budget: [0, 15000000000, 0, 0, 10000000000] },
-                    { action: "Pembangunan RTH Kawasan Islamic Center (Lanjutan)", budget: [0, 0, 10000000000, 0, 3000000000] },
-                    { action: "Pembangunan Kantor Dinas Pendidikan", budget: [0, 0, 8500000000, 0, 0] },
-                    { action: "Fasilitas Kesehatan RSUD (Pusat Trauma/ICU)", budget: [13000000000, 0, 0, 0, 0] },
-                    { action: "Gedung PKK & Dekranasda (Pembangunan & Rehab)", budget: [6000000000, 0, 0, 5000000000, 0] }
+                    { action: "Pembangunan Gedung Aula Rakat Mufakat Kab. HSS (Lanjutan)", budget: [14782780000, 0, 0, 0, 0] },
+                    { action: "Pembangunan Kantor dan Gedung Diklat BKPSDM (Lanjutan)", budget: [0, 8000000000, 0, 0, 0] },
+                    { action: "Pembangunan Studio Digital Diskominfo Kab. HSS", budget: [0, 0, 5000000000, 0, 0] },
+                    { action: "Pembangunan Gedung Kesenian Kab. HSS (Tahap 1)", budget: [0, 0, 0, 3500000000, 0] },
+                    { action: "Pembangunan Gedung Kesenian Kab. HSS (Lanjutan)", budget: [0, 0, 0, 0, 3500000000] },
+
+                    { action: "Pembangunan Gedung Diklat BKPSDM Tahap I", budget: [8000000000, 0, 0, 0, 0] },
+                    { action: "Pembangunan Mall Pelayanan Publik di Negara (Lanjutan)", budget: [0, 5000000000, 0, 0, 0] },
+                    { action: "Penataan Site Development Gedung Aula Rakat Mufakat Kab. HSS", budget: [0, 0, 1000000000, 0, 0] },
+                    { action: "Pembangunan Kantor Dinas Pendidikan Kab. HSS", budget: [0, 0, 0, 8500000000, 0] },
+                    { action: "Pembangunan Kawasan Kuliner Bantaran Sungai Amandit (Lanjutan)", budget: [0, 0, 0, 0, 7000000000] },
+
+                    { action: "Pembangunan Kantor Kecamatan Daha Selatan (lanjutan)", budget: [6000000000, 0, 0, 0, 0] },
+                    { action: "Pembangunan Kawasan Kuliner Bantaran Sungai Amandit (Tahap 1)", budget: [0, 8000000000, 0, 0, 0] },
+                    { action: "Pembangunan Rumah Jabatan Sekretaris Daerah Kab. HSS", budget: [0, 0, 5000000000, 0, 0] },
+                    { action: "Pembangunan Paving Blok di Stadion Dr. H.M. Syafii", budget: [0, 0, 0, 2000000000, 0] },
+                    { action: "Pembangunan Jalan Utama Masuk di Kawasan Perkantoran (Lanjutan)", budget: [0, 0, 0, 0, 10000000000] },
+
+                    { action: "Pembangunan Gedung PKK Kab. HSS", budget: [3000000000, 0, 0, 0, 0] },
+                    { action: "Pembangunan Kolam Retensi di Kawasan Perkantoran Kab. HSS Tahap II", budget: [0, 10000000000, 0, 0, 0] },
+                    { action: "Penataan Site Development Pemakaman Datu Balimau", budget: [0, 0, 2000000000, 0, 0] },
+                    { action: "Pembangunan Paving Blok Jalan dan Drainase Ponpes Ibnu Mas'ud", budget: [0, 0, 0, 1000000000, 0] },
+                    { action: "Pembangunan RTH Kawasan Islamic Center (Lanjutan)", budget: [0, 0, 0, 0, 3000000000] },
+
+                    { action: "Pembangunan Gedung Dekranasda Kab. HSS", budget: [3000000000, 0, 0, 0, 0] },
+                    { action: "Pembangunan Pendopo di Kec. Daha Selatan", budget: [0, 5000000000, 0, 0, 0] },
+                    { action: "Pembangunan Pendopo Bupati di Kec. Daha Selatan", budget: [0, 0, 6500000000, 0, 0] },
+                    { action: "Pembangunan Gedung PKK Kab. HSS (Rehab/Baru)", budget: [0, 0, 0, 5000000000, 0] },
+
+                    { action: "Pembangunan Gedung Serbaguna Kec. Sungai Raya", budget: [4000000000, 0, 0, 0, 0] },
+                    { action: "Pembangunan Pondok Pesantren Dalam Pagar", budget: [0, 19000000000, 0, 0, 0] },
+                    { action: "Pembangunan RTH Kawasan Islamic Center (Tahap 1)", budget: [0, 0, 7000000000, 0, 0] },
+                    { action: "Rehabilitasi Asrama Putri Kab. HSS di Banjarbaru", budget: [0, 0, 0, 1000000000, 0] },
+
+                    { action: "Pembangunan Kantor Disnakerkop UKM dan Perindustrian", budget: [2000000000, 0, 0, 0, 0] },
+                    { action: "Pembangunan Jalan Utama Masuk di Kawasan Perkantoran (Tahap 1)", budget: [0, 5000000000, 0, 0, 0] },
+                    { action: "Peningkatan Arsitektural Mesjid Nurul Hidayah", budget: [0, 0, 3500000000, 0, 0] },
+                    { action: "Rehabilitasi Gedung Dekranasda Kab. HSS", budget: [0, 0, 0, 5000000000, 0] },
+
+                    // Lain-lain 2026
+                    { action: "Pembangunan Mal Pelayanan Publik di Negara", budget: [3500000000, 0, 0, 0, 0] },
+                    { action: "Penataan Site Development di Kec. Loksado", budget: [340000000, 0, 0, 0, 0] },
+                    { action: "Peningkatan Gedung Sekretariat DPRD Kab. HSS", budget: [1667344000, 0, 0, 0, 0] },
+                    { action: "Rehabilitasi Lapangan Bola Datu Durabu Kec. Kalumpang", budget: [400000000, 0, 0, 0, 0] },
+                    { action: "Pembangunan Lapangan Bola Desa Balimau Kec. Kalumpang", budget: [2000000000, 0, 0, 0, 0] },
+                    { action: "Rehabilitasi Bangunan ICU di RSUD H. Hasan Basry", budget: [4500000000, 0, 0, 0, 0] },
+                    { action: "Rehabilitasi Ruang Poli Eksekutif di RSUD H. Hasan Basry", budget: [1500000000, 0, 0, 0, 0] },
+                    { action: "Pembangunan Rawat Inap di RSUD Brigjend H. Hasan Basry", budget: [7000000000, 0, 0, 0, 0] },
+                    { action: "Rehabilitasi Asrama Putra Malaris Malang (Lanjutan)", budget: [400000000, 0, 0, 0, 0] },
+                    { action: "Pembangunan Kantor KPU Kab. HSS Tahap 1", budget: [4500000000, 0, 0, 0, 0] }
                 ]
             },
             {
-                objective: "SANITASI: Layanan Sanitasi Layak & Standar Kesehatan",
+                objective: "SANITASI: Layanan Sanitasi Layak (Detail Desa)",
                 items: [
-                    { action: "Peningkatan Kawasan TPA Malutu Tahap 2", budget: [7000000000, 0, 0, 0, 0] },
-                    { action: "Program Gebrak Sehati & Rehab IPLT", budget: [1473850000, 690000000, 0, 0, 0] },
-                    { action: "Paket Pembangunan SPALD-S Perdesaan (Kolektif 2026)", budget: [3273060000, 0, 0, 0, 0] },
-                    { action: "Paket Pembangunan SPALD-S Perdesaan (Kolektif 2027)", budget: [0, 5971954217, 0, 0, 0] },
-                    { action: "Paket Pembangunan SPALD-S Perdesaan (Kolektif 2028)", budget: [0, 0, 7055740434, 0, 0] },
-                    { action: "Paket Pembangunan SPALD-S Perdesaan (Kolektif 2029)", budget: [0, 0, 0, 7558667527, 0] },
-                    // Rincian 2030
-                    { action: "Pembangunan SPALD-S di Desa Tawia (50 Unit)", budget: [0, 0, 0, 0, 642512433] },
-                    { action: "Pembangunan SPALD-S di Desa Paring Agung (50 Unit)", budget: [0, 0, 0, 0, 642512433] },
-                    { action: "Pembangunan SPALD-S di Desa Telaga Sili-Sili (50 Unit)", budget: [0, 0, 0, 0, 642512433] },
-                    { action: "Pembangunan SPALD-S di Desa Pandulangan (50 Unit)", budget: [0, 0, 0, 0, 642512433] }
+                    { action: "Program Gebrak Sehati Kab. HSS (70 Unit)", budget: [1473850000, 0, 0, 0, 0] },
+                    { action: "Rehabilitasi UPTD IPLT Kab. HSS (APBN)", budget: [0, 690000000, 0, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA HALUNUK", budget: [0, 0, 642512433, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA BELAH PAIKAT", budget: [0, 0, 0, 773966962, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA TAWIA", budget: [0, 0, 0, 0, 642512433] },
+
+                    { action: "Pembangunan SPALD JAGAT Desa Baruh Jaya (17 Unit)", budget: [454580000, 0, 0, 0, 0] },
+                    { action: "Pembangunan SPALD-S di Desa Malilingin (APBN)", budget: [0, 2300000000, 0, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA PEKAPURAN KECIL", budget: [0, 0, 959719033, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA SUNGAI KUPANG", budget: [0, 0, 0, 642512433, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA PARING AGUNG", budget: [0, 0, 0, 0, 642512433] },
+
+                    { action: "Pembangunan SPALD JAGAT Telaga Sili-Sili (11 Unit)", budget: [192610000, 0, 0, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA BARUH JAYA", budget: [0, 773966962, 0, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA BANGKAU", budget: [0, 0, 820404980, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA TAMBANGAN", budget: [0, 0, 0, 773966962, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA TELAGA SILI-SILI", budget: [0, 0, 0, 0, 642512433] },
+
+                    { action: "Pembangunan SPALD JAGAT Desa Baru (11 Unit)", budget: [192610000, 0, 0, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA MAWANGI", budget: [0, 745314422, 0, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA BALIMAU", budget: [0, 0, 773966962, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA SAMUDA", budget: [0, 0, 0, 773966962, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA PANDULANGAN", budget: [0, 0, 0, 0, 642512433] },
+
+                    { action: "Pembangunan SPALD JAGAT Karang Paci (8 Unit)", budget: [213920000, 0, 0, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA KALUMPANG (Tahap 1)", budget: [0, 642512433, 0, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA GAMBAH DALAM BARAT", budget: [0, 0, 706763676, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA MADANG", budget: [0, 0, 0, 642512433, 0] },
+
+                    { action: "Pembangunan SPALD JAGAT Siang Gantung (14 Unit)", budget: [374360000, 0, 0, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA HAMAK TIMUR", budget: [0, 642512433, 0, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA PAKAN DALAM", budget: [0, 0, 773966962, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA AMBUTUN", budget: [0, 0, 0, 642512433, 0] },
+
+                    { action: "Pembangunan SPALD JAGAT Kalumpang, Balimau, Bago", budget: [374360000, 0, 0, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA BAJAYAU LAMA", budget: [0, 773966962, 0, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA HAMAYUNG UTARA", budget: [0, 0, 820404980, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA PASUNGKAN", budget: [0, 0, 0, 773966962, 0] },
+
+                    { action: "Pembangunan SPALD JAGAT Lumpangi, Malinau, Ulang", budget: [919000000, 0, 0, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA LONGAWANG", budget: [0, 642512433, 0, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA KALUMPANG (Tahap 2)", budget: [0, 0, 773966962, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA HAMAYUNG", budget: [0, 0, 0, 773966962, 0] },
+
+                    { action: "Pembangunan SPALD JAGAT Asam dan Sarang Halang", budget: [385220000, 0, 0, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA LUMPANGI", budget: [0, 642512433, 0, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA HAMAK UTARA", budget: [0, 0, 655362681, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA BANUA HANYAR", budget: [0, 0, 0, 773966962, 0] },
+
+                    { action: "Pembangunan SPALD JAGAT Hulu Banyu, Loklahung", budget: [385980000, 0, 0, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA HULU BANYU", budget: [0, 642512433, 0, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA TANIRAN KUBAH", budget: [0, 0, 2467247742, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA TANJUNG SELOR", budget: [0, 0, 0, 882322337, 0] },
+
+                    { action: "Pembangunan SPALD JAGAT Siang Gantung (Tahap 2)", budget: [374360000, 0, 0, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA MUNING TENGAH", budget: [0, 773966962, 0, 0, 0] },
+                    { action: "Pembangunan SPALD JAGAT Wasah Hilir", budget: [385220000, 0, 0, 0, 0] },
+                    { action: "PEMBANGUNAN SPALD-S DI DESA BATU BINI", budget: [0, 642512433, 0, 0, 0] },
+                    { action: "Pembangunan SPALD JAGAT Panjampang Bahagia", budget: [192610000, 0, 0, 0, 0] },
+
+                    { action: "Tangki Septik Individual Desa Batu Laki (DAK)", budget: [655511000, 0, 0, 0, 0] },
+                    { action: "Tangki Septik Individual Desa Kayu Abang (DAK)", budget: [655511000, 0, 0, 0, 0] },
+                    { action: "Tangki Septik Individual Desa Sarang Halang (DAK)", budget: [655511000, 0, 0, 0, 0] },
+                    { action: "Peningkatan Kawasan TPA Malutu Tahap 2", budget: [7000000000, 0, 0, 0, 0] }
                 ]
             },
             {
-                objective: "AIR BERSIH: Sistem Distribusi & Akses Layanan Air Bersih",
+                objective: "AIR BERSIH: Akses & Distribusi Perpipaan",
                 items: [
+                    { action: "Pembangunan SPAM Desa Balanti", budget: [198900000, 0, 0, 0, 0] },
+                    { action: "Pembangunan IPA & Japip Hamayung (APBN)", budget: [0, 9200000000, 0, 0, 0] },
+                    { action: "Pembangunan SPAM Desa Hamayung Utara", budget: [0, 0, 420000000, 0, 0] },
+                    { action: "Pembangunan SPAM Desa Tamiyang", budget: [0, 0, 0, 420000000, 0] },
+                    { action: "Pembangunan SPAM Desa Siang Gantung", budget: [0, 0, 0, 0, 420000000] },
+
+                    { action: "Pembangunan SPAM Desa Sirih Hulu", budget: [306000000, 0, 0, 0, 0] },
+                    { action: "Pergantian Jaringan Pipa Kota Kandangan (APBN)", budget: [0, 11500000000, 0, 0, 0] },
+                    { action: "Pembangunan SPAM Desa Kapuh", budget: [0, 0, 420000000, 0, 0] },
+                    { action: "Pembangunan SPAM Desa Tanah Bangkang", budget: [0, 0, 0, 420000000, 0] },
+                    { action: "Pembangunan SPAM Desa Sungai Garuda", budget: [0, 0, 0, 0, 420000000] },
+
+                    { action: "Peningkatan SPAM Bamban Utara (DAK)", budget: [420000000, 0, 0, 0, 0] },
+                    { action: "Pembangunan SPAM Desa Amawang Kanan", budget: [0, 420000000, 0, 0, 0] },
+                    { action: "Pembangunan SPAM Desa Loksado", budget: [0, 0, 435000000, 0, 0] },
+                    { action: "Pembangunan SPAM Desa Taniran Selatan", budget: [0, 0, 0, 420000000, 0] },
+                    { action: "Pembangunan SPAM Desa Garunggang", budget: [0, 0, 0, 0, 420000000] },
+
+                    { action: "Peningkatan SPAM Bangkau (DAK)", budget: [420000000, 0, 0, 0, 0] },
+                    { action: "Pembangunan SPAM Desa Amparaya", budget: [0, 420000000, 0, 0, 0] },
+                    { action: "Pembangunan SPAM Desa Paharangan", budget: [0, 0, 420000000, 0, 0] },
+                    { action: "Pembangunan SPAM Desa Wasah Hulu", budget: [0, 0, 0, 420000000, 0] },
+                    { action: "Pembangunan SPAM Desa Hamayung", budget: [0, 0, 0, 0, 420000000] },
+
+                    { action: "Peningkatan SPAM Baruh Jaya (DAK)", budget: [525160000, 0, 0, 0, 0] },
+                    { action: "Pembangunan SPAM Desa Bangkau (APBD)", budget: [0, 420000000, 0, 0, 0] },
+                    { action: "Pembangunan SPAM Desa Pantai Ulin", budget: [0, 0, 420000000, 0, 0] },
+                    { action: "Pembangunan SPAM Desa Wasah Tengah", budget: [0, 0, 0, 420000000, 0] },
+
+                    { action: "Peningkatan SPAM Bumi Berkat (DAK)", budget: [420000000, 0, 0, 0, 0] },
+                    { action: "Pembangunan SPAM Desa Bumi Berkat (APBD)", budget: [0, 420000000, 0, 0, 0] },
+                    { action: "Pembangunan SPAM Desa Sarang Halang", budget: [0, 0, 420000000, 0, 0] },
+
+                    { action: "Perluasan SPAM Paharangan (DAK)", budget: [1650000000, 0, 0, 0, 0] },
                     { action: "Tapping Pipa Intake Malutu ke Muara Banta", budget: [9000000000, 0, 0, 0, 0] },
-                    { action: "Pembangunan IPA & Jaringan Perpipaan Hamayung (APBN)", budget: [0, 9200000000, 0, 0, 0] },
-                    { action: "Pergantian Jaringan Pipa Perkotaan Kandangan (APBN)", budget: [0, 11500000000, 0, 0, 0] },
-                    { action: "Peningkatan SPAM Jaringan Perpipaan (Kolektif 2026)", budget: [3920060000, 0, 0, 0, 0] },
-                    { action: "Peningkatan SPAM Jaringan Perpipaan (Kolektif 2027)", budget: [0, 4215000000, 0, 0, 0] },
-                    { action: "Peningkatan SPAM Jaringan Perpipaan (Kolektif 2028)", budget: [0, 0, 2535000000, 0, 0] },
-                    { action: "Peningkatan SPAM Jaringan Perpipaan (Kolektif 2029)", budget: [0, 0, 0, 2520000000, 0] },
-                    // Rincian 2030
-                    { action: "Pembangunan SPAM di Desa Siang Gantung Kec. Daha Barat (50 SR)", budget: [0, 0, 0, 0, 420000000] },
-                    { action: "Pembangunan SPAM di Desa Sungai Garuda Kec. Daha Utara (50 SR)", budget: [0, 0, 0, 0, 420000000] },
-                    { action: "Pembangunan SPAM di Desa Garunggang Kec. Simpur (50 SR)", budget: [0, 0, 0, 0, 420000000] },
-                    { action: "Pembangunan SPAM di Desa Hamayung Kec. Daha Utara (50 SR)", budget: [0, 0, 0, 0, 420000000] }
+                    { action: "Instalasi Air Bersih di RSUD Kandangan", budget: [1113500000, 0, 0, 0, 0] }
+                ]
+            },
+            {
+                objective: "DRAINASE & TROTOAR: Kelaikan Sistem Perkotaan",
+                items: [
+                    { action: "Pembangunan Saluran Drainase Jl. Muara Banta", budget: [400000000, 0, 0, 0, 0] },
+                    { action: "Pembangunan Sistem Drainase Perkotaan (Sistem 3)", budget: [975000000, 0, 0, 0, 0] },
+                    { action: "Operasi dan Pemeliharaan Sistem Drainase Jl. A Yani", budget: [400000000, 0, 0, 0, 0] },
+                    { action: "OP Sistem Drainase Jl. Merah Johansyah", budget: [200000000, 0, 0, 0, 0] },
+                    { action: "OP Sistem Drainase Jl. Merdeka", budget: [200000000, 0, 0, 0, 0] },
+                    { action: "OP Sistem Drainase Jl. Singakarsa", budget: [200000000, 0, 0, 0, 0] },
+                    { action: "OP Sistem Drainase (Sistem 1)", budget: [400000000, 0, 0, 0, 0] },
+                    { action: "OP Sistem Drainase (Sistem 4)", budget: [153080000, 0, 0, 0, 0] },
+                    { action: "OP Sistem Drainase Trotoar & Pedestrian Kandangan", budget: [400000000, 0, 0, 0, 0] }
                 ]
             }
         ];
 
-        // --- CORE FUNCTIONS ---
+        // --- CORE LOGIC ---
         const formatIDR = (num) => {
             if (num === 0) return `<span class="text-gray-300">-</span>`;
             return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(num).replace("Rp", "");
@@ -263,15 +393,12 @@
             tbody.innerHTML = '';
             let colIndices = (filterMode === 'all') ? [0, 1, 2, 3, 4] : [{'2026':0, '2027':1, '2028':2, '2029':3, '2030':4}[filterMode]];
 
-            // Header
             let headHTML = `<tr><th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-1/3">Rencana Aksi</th>`;
             colIndices.forEach(idx => headHTML += `<th class="px-3 py-4 text-right text-xs font-bold text-gray-600 uppercase tracking-wider">${2026+idx}</th>`);
             headHTML += `<th class="px-4 py-4 text-right text-xs font-bold text-emerald-700 uppercase tracking-wider bg-emerald-50">Total</th></tr>`;
             thead.innerHTML = headHTML;
 
-            // Body
             rawData.forEach((group, gIdx) => {
-                // Filter rows for specific year if selected
                 let visibleItems = group.items;
                 if (filterMode !== 'all') {
                     const idx = {'2026':0, '2027':1, '2028':2, '2029':3, '2030':4}[filterMode];
@@ -295,15 +422,13 @@
                 }
             });
 
-            // Footer
-            let footHTML = `<tr class="bg-slate-200 text-gray-900"><td class="px-6 py-4">TOTAL</td>`;
-            colIndices.forEach(idx => footHTML += `<td class="px-3 py-4 text-right currency-cell">${formatIDR(totalPerYear[idx])}</td>`);
+            let footHTML = `<tr class="bg-slate-200 text-gray-900"><td class="px-6 py-4 font-bold">TOTAL</td>`;
+            colIndices.forEach(idx => footHTML += `<td class="px-3 py-4 text-right currency-cell font-bold">${formatIDR(totalPerYear[idx])}</td>`);
             const totalDisplay = filterMode === 'all' ? grandTotal : totalPerYear[{'2026':0, '2027':1, '2028':2, '2029':3, '2030':4}[filterMode]];
             footHTML += `<td class="px-4 py-4 text-right currency-cell text-emerald-800 font-black">${formatIDR(totalDisplay)}</td></tr>`;
             tfoot.innerHTML = footHTML;
         }
 
-        // --- STATS & CHARTS ---
         window.onload = function() {
             document.getElementById('totalBudget').innerText = formatFull(grandTotal);
             document.getElementById('totalActivities').innerText = activityCount;
@@ -315,7 +440,7 @@
                 data: {
                     labels: ['2026', '2027', '2028', '2029', '2030'],
                     datasets: [{
-                        label: 'Anggaran',
+                        label: 'Pagu Anggaran',
                         data: totalPerYear,
                         borderColor: '#10b981',
                         backgroundColor: 'rgba(16, 185, 129, 0.1)',
@@ -324,19 +449,16 @@
                         pointRadius: 5
                     }]
                 },
-                options: { 
-                    responsive: true, maintainAspectRatio: false,
-                    scales: { y: { ticks: { callback: v => (v/1e9).toFixed(1) + ' M' } } }
-                }
+                options: { responsive: true, maintainAspectRatio: false }
             });
 
             new Chart(document.getElementById('categoryChart'), {
                 type: 'doughnut',
                 data: {
-                    labels: ['Gedung', 'Sanitasi', 'Air Bersih'],
+                    labels: ['Gedung', 'Sanitasi', 'Air Bersih', 'Drainase'],
                     datasets: [{
                         data: totalPerObjective,
-                        backgroundColor: ['#10b981', '#f59e0b', '#3b82f6']
+                        backgroundColor: ['#10b981', '#f59e0b', '#3b82f6', '#ef4444']
                     }]
                 },
                 options: { responsive: true, maintainAspectRatio: false }
