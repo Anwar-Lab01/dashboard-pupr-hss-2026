@@ -6,69 +6,142 @@
     <title>Portal Dashboard PUPR HSS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
 </head>
-<body class="bg-slate-100 font-sans">
+<body class="bg-slate-50 font-sans">
     <div class="max-w-6xl mx-auto px-4 py-12">
-        <header class="text-center mb-12">
-            <h1 class="text-4xl font-black text-slate-800 uppercase tracking-tight">RENCANA AKSI</h1>
-            <p class="text-slate-600 mt-2 text-lg">Dinas Pekerjaan Umum dan Penataan Ruang Kabupaten Hulu Sungai Selatan</p>
+        <header class="text-center mb-16">
+            <div class="inline-block bg-slate-900 text-white px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-4">
+                RANGKUMAN
+            </div>
+            <h1 class="text-5xl font-black text-slate-900 uppercase tracking-tighter mb-4">
+                RENCANA AKSI <span class="text-amber-500">PUPR</span>
+            </h1>
+            <p class="text-slate-500 max-w-2xl mx-auto text-lg leading-relaxed">
+                Visualisasi data dan ringkasan strategis pembangunan infrastruktur di Kabupaten Hulu Sungai Selatan untuk periode 2026 - 2030.
+            </p>
         </header>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <a href="bina-marga.html" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-lg transition-all group">
-                <div class="flex items-center gap-4">
-                    <div class="bg-amber-500 text-white p-4 rounded-xl group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-road text-2xl"></i>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Bina Marga -->
+            <a href="bina-marga.html" class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                <div class="flex items-start justify-between mb-6">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-amber-500 text-white p-4 rounded-2xl group-hover:rotate-6 transition-transform shadow-lg shadow-amber-100">
+                            <i class="fa-solid fa-road text-2xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-black text-slate-800">Bina Marga</h2>
+                            <p class="text-amber-600 text-xs font-bold uppercase tracking-wider">Infrastruktur Jalan</p>
+                        </div>
                     </div>
-                    <div>
-                        <h2 class="text-xl font-bold text-slate-800">Bidang Bina Marga</h2>
-                        <p class="text-slate-500 text-sm">Infrastruktur Jalan & Jembatan (2026)</p>
+                    <i class="fa-solid fa-arrow-right text-slate-300 group-hover:text-amber-500 transition-colors"></i>
+                </div>
+                
+                <div class="space-y-3">
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Fokus pada peningkatan konektivitas wilayah melalui rekonstruksi jalan strategis dan penggantian jembatan yang telah mencapai umur teknis.
+                    </p>
+                    <div class="flex flex-wrap gap-2 pt-4 border-t border-slate-100">
+                        <span class="px-3 py-1 bg-amber-50 text-amber-700 rounded-full text-[10px] font-bold border border-amber-100 uppercase">Konektivitas Wilayah</span>
+                        <span class="px-3 py-1 bg-amber-50 text-amber-700 rounded-full text-[10px] font-bold border border-amber-100 uppercase">Infrastruktur Strategis</span>
                     </div>
                 </div>
             </a>
 
-            <a href="cipta-karya.html" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-lg transition-all group">
-                <div class="flex items-center gap-4">
-                    <div class="bg-emerald-600 text-white p-4 rounded-xl group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-city text-2xl"></i>
+            <!-- Cipta Karya -->
+            <a href="cipta-karya.html" class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                <div class="flex items-start justify-between mb-6">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-emerald-600 text-white p-4 rounded-2xl group-hover:rotate-6 transition-transform shadow-lg shadow-emerald-100">
+                            <i class="fa-solid fa-city text-2xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-black text-slate-800">Cipta Karya</h2>
+                            <p class="text-emerald-600 text-xs font-bold uppercase tracking-wider">Gedung & Penyehatan Lingkungan</p>
+                        </div>
                     </div>
-                    <div>
-                        <h2 class="text-xl font-bold text-slate-800">Bidang Cipta Karya</h2>
-                        <p class="text-slate-500 text-sm">Gedung, Sanitasi, & Air Bersih (2026-2030)</p>
+                    <i class="fa-solid fa-arrow-right text-slate-300 group-hover:text-emerald-600 transition-colors"></i>
+                </div>
+                
+                <div class="space-y-3">
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Pengembangan gedung pelayanan publik (Aula Rakat Mufakat, MPP), perluasan akses air bersih (SPAM Desa), dan sistem sanitasi komprehensif.
+                    </p>
+                    <div class="flex flex-wrap gap-2 pt-4 border-t border-slate-100">
+                        <span class="px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full text-[10px] font-bold border border-emerald-100 uppercase">2026-2030</span>
+                        <span class="px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full text-[10px] font-bold border border-emerald-100 uppercase">Sanitasi Desa</span>
                     </div>
                 </div>
             </a>
 
-            <a href="sda.html" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-lg transition-all group">
-                <div class="flex items-center gap-4">
-                    <div class="bg-cyan-600 text-white p-4 rounded-xl group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-water text-2xl"></i>
+            <!-- SDA -->
+            <a href="sda.html" class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                <div class="flex items-start justify-between mb-6">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-cyan-600 text-white p-4 rounded-2xl group-hover:rotate-6 transition-transform shadow-lg shadow-cyan-100">
+                            <i class="fa-solid fa-water text-2xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-black text-slate-800">Sumber Daya Air</h2>
+                            <p class="text-cyan-600 text-xs font-bold uppercase tracking-wider">Pengelolaan Air & Pengendalian Banjir</p>
+                        </div>
                     </div>
-                    <div>
-                        <h2 class="text-xl font-bold text-slate-800">Sumber Daya Air (SDA)</h2>
-                        <p class="text-slate-500 text-sm">Irigasi & Pengendalian Daya Rusak Air (2026)</p>
+                    <i class="fa-solid fa-arrow-right text-slate-300 group-hover:text-cyan-600 transition-colors"></i>
+                </div>
+                
+                <div class="space-y-3">
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Optimalisasi jaringan pengairan untuk ketahanan pangan serta pengendalian daya rusak air melalui normalisasi sungai dan pembangunan tanggul.
+                    </p>
+                    <div class="flex flex-wrap gap-2 pt-4 border-t border-slate-100">
+                        <span class="px-3 py-1 bg-cyan-50 text-cyan-700 rounded-full text-[10px] font-bold border border-cyan-100 uppercase">Ketahanan Pangan</span>
+                        <span class="px-3 py-1 bg-cyan-50 text-cyan-700 rounded-full text-[10px] font-bold border border-cyan-100 uppercase">Tanggul Sungai</span>
                     </div>
                 </div>
             </a>
 
-            <a href="tata-ruang.html" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-lg transition-all group">
-                <div class="flex items-center gap-4">
-                    <div class="bg-blue-600 text-white p-4 rounded-xl group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-map-marked-alt text-2xl"></i>
+            <!-- Tata Ruang -->
+            <a href="tata-ruang.html" class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                <div class="flex items-start justify-between mb-6">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-blue-600 text-white p-4 rounded-2xl group-hover:rotate-6 transition-transform shadow-lg shadow-blue-100">
+                            <i class="fa-solid fa-map-marked-alt text-2xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-black text-slate-800">Tata Ruang & Jakon</h2>
+                            <p class="text-blue-600 text-xs font-bold uppercase tracking-wider">Perencanaan & Pembinaan</p>
+                        </div>
                     </div>
-                    <div>
-                        <h2 class="text-xl font-bold text-slate-800">Tata Ruang & Jasa Konstruksi</h2>
-                        <p class="text-slate-500 text-sm">RDTR & Sertifikasi Tenaga Kerja (2026-2030)</p>
+                    <i class="fa-solid fa-arrow-right text-slate-300 group-hover:text-blue-600 transition-colors"></i>
+                </div>
+                
+                <div class="space-y-3">
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Percepatan penyusunan RDTR Kabupaten/Kota serta peningkatan kualitas tenaga kerja konstruksi melalui sertifikasi dan pemantauan tertib usaha.
+                    </p>
+                    <div class="flex flex-wrap gap-2 pt-4 border-t border-slate-100">
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-[10px] font-bold border border-blue-100 uppercase">RDTR Wilayah</span>
+                        <span class="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-[10px] font-bold border border-blue-100 uppercase">Sertifikasi Jakon</span>
                     </div>
                 </div>
             </a>
         </div>
         
-        <footer class="mt-16 text-center text-slate-400 text-xs uppercase tracking-widest">
-            &copy; 2026 Dinas PUPR HSS - Kab. Hulu Sungai Selatan
+        <footer class="mt-20 text-center border-t border-slate-200 pt-10">
+            <div class="flex justify-center gap-6 mb-4 grayscale opacity-80">
+                <img src="https://ik.imagekit.io/fy7fkdbsx/logo-hss.png" alt="Logo HSS" class="h-12 object-contain">
+                <div class="h-12 w-[1px] bg-slate-300"></div>
+                <div class="flex flex-col items-start justify-center">
+                    <span class="text-[10px] font-bold text-slate-800">DINAS PUPR</span>
+                    <span class="text-[8px] text-slate-500">HULU SUNGAI SELATAN</span>
+                </div>
+            </div>
+            <p class="text-slate-400 text-[10px] uppercase tracking-[0.4em]">&copy; 2026 Dinas Pekerjaan Umum dan Penataan Ruang</p>
         </footer>
     </div>
 </body>
-
 </html>
-
